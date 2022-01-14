@@ -48,8 +48,8 @@ class Save(db.Model):
     buddy_id = db.Column(db.Integer, db.ForeignKey("users.user_id")) #field for user who is being saved
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id")) #field for current user saving
 
-    buddy = db.relationship("User", backref="user", foreign_keys=[buddy_id])
-    user = db.relationship("User", backref="buddies", foreign_keys=[user_id])
+    buddy = db.relationship("User", backref="saved_by", foreign_keys=[buddy_id])
+    user = db.relationship("User", backref="saves", foreign_keys=[user_id]) #list of Save objects
 
     def __repr__(self):
         return f"<Save save_id={self.save_id} buddy_id={self.buddy_id}>"
@@ -74,5 +74,4 @@ if __name__ == "__main__":
     # query it executes.
 
     connect_to_db(app)
-    users = User.query.all()
 

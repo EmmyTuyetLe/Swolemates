@@ -1,12 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %} {% endblock %}</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../static/css/styles.css">
+  <title>{% block title %}{% endblock %}</title>
 </head>
+<header class="header">
+  <nav id="navbar">
+    <div>
+      <a href="/"><img style="height: 50px; width: auto;" src="../static/img/barbell.png"
+          alt="barbell"></a>
+    </div>
+
+    <div id="navtext">
+      <h2 class="navtext"><a href="/user">My Profile</a></h2>
+      <h2 class="navtext"><a href="/login_button">Login</a></h2>
+      <h2 class="navtext"><a href="/logout">Logout</a></h2>
+    </div>
+  </nav>
+</header>
+
 <body>
-    {% block body %} {% endblock %}
+  {% for msg in get_flashed_messages() %}
+  <p class="flash-msg">
+    {{ msg }}
+  </p>
+  {% endfor %}
+  {% block body %}{% endblock %}
+  <script src="../static/js/search.js"></script>
 </body>
+
 </html>

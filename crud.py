@@ -57,10 +57,10 @@ def get_location_by_id(location_id):
     return Location.query.get(location_id)
 
 
-def create_buddy(buddy_id, user_id):
+def create_buddy(buddy, user):
     """Allow user to save a buddy."""
 
-    save = Save(buddy_id=buddy_id, user_id=user_id)
+    save = Save(buddy=buddy, user=user)
 
     db.session.add(save)
     db.session.commit()

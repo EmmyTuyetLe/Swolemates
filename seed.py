@@ -4,11 +4,13 @@ import os
 import json
 from random import choice, randint
 from datetime import datetime
+from faker import Faker
 
 import crud
 import model
 import server
 import requests
+fake = Faker()
 
 os.system("dropdb swolemates")
 os.system("createdb swolemates")
@@ -30,19 +32,43 @@ for n in range(10):
     location = crud.create_location(businesses[n]["id"], businesses[n]["name"])
     
 
-# Create 20 users; 
+
+# Create 20 users;
 users_db = []
+# gender_options = ["Cisgender-female", "Non-binary/non-conforming", "Transgender-female", "Transgender-male", "Cisgender-male"] 
 for n in range(20):
-    email = f"user{n}@test.com"  
+    fname = fake.first_name()
+    lname = fake.last_name()
+    # gender = choice(gender_options)
+    domain = fake.free_email_domain()
+    email = f'{fname}.{lname}@{domain}' 
     password = "test"
 
-    user = crud.create_user(email, password)
+    user = crud.create_user(fname=fname, lname=lname, email=email, password=password)
+    users_db.append(user)
     
-#have some users save other users
-#should I randomly generate an user id and buddy id from the existing users db?
-    # for _ in range(20):
-    #     buddy_id = randint(1, 20)
-    #     user_id = randint(1, 20)
-    #     if buddy_id != user_id:
-    #         crud.create_buddy(buddy_id, user_id)
+# have some users save other users
+# user1 = users[0]
+# user2 = users[1]
+# user1.buddies.append(user2)
+# save1 = Save(buddy = user1, user = user2)
+# db.session.add(save1)
+# db.session.commit()
+
+for user in users_db: 
+    buddy = choice(users_db)
+    user = choice(users_db)
+
+    if user != buddy:
+
+        save = crud.create_buddy(buddy, user)
+
+    else:
+        continue
+
+    
+
+    
+    
+    
 

@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 
-{% block title %} Homepage {% endblock %}
+{% block title %}Find your Swolemates{% endblock %}
 
-{% block body %} 
-<div>
-    <p>
-        <h1>Hi! Ready to find your swolemate and get strong?</h1>
+{% block body %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-7">
+        <div id="welcome">
+          {% if 'logged_in_user' in session %}
+          <h2>Hi {{user.fname}}. We're so happy you're here!</h2>
+          {% else %}
+          <h2>Hi there! Ready to get meet friends and get strong?</h2>        
+          <p><a href="/login">Log In</a> to get started!</p>
+          {% endif %}
+
+<h1>Search for a workout destination!</h1>
+<form action="/handle-search" id="search-form">
+    <p style="display: inline;">
+        Find: <input id="search-text" type="text" name="search-name">
+        Near: <input id="location-text" type="text" name="location-name">
     </p>
-</div>
+    <p style="display: inline;"> <input value="Go!" id="search-button" type="submit"></p>
+</form>
 
 
 

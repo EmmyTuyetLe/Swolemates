@@ -5,8 +5,8 @@
 
 {% block body %}
 
-<h2>Log In</h2>
-<form action="/handle-login" method="POST">
+<h2>Already a swolemate? Log In</h2>
+<form action="/login" method="POST">
   <p>
     Email: <input type="text" name="email">
   </p>
@@ -19,7 +19,7 @@
     <input value="Log In" type="submit">
   </p>
 </form>
-<h2>New Swolemate? Create an Account</h2>
+<h2>Future Swolemate? Create an Account</h2>
 <form action="/create-user" method="POST">
   <p>
     Email: <input type="text" name="email">
