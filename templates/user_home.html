@@ -8,11 +8,10 @@
     <div class="row">
       <div class="col-7">
         <div id="welcome">
-          {% if "user_id" in session %}
-          <h2>Hi {{session["fname"]}}. We're so happy you're here!</h2>
+          {% if "logged_in_user" in session %}
+          <h2>Hi {{user.fname}}. We're so happy you're here!</h2>
           {% else %}
           <h2>Welcome! Ready to get meet friends and get strong?</h2>
-          <p><u><a href="/login">Log In</a></u> to save your favorite buddies and locations</p>        
           {% endif %}
 
 <p>Search for a workout destination!</p>

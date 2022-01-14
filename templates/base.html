@@ -11,13 +11,12 @@
 <header class="header">
   <nav id="navbar">
     <div>
-      <a href="/"><img style="height: 50px; width: auto;" src="../static/img/barbell.png"
-          alt="barbell"></a>
+      <a href="/"><img style="height: 60px; width: auto;" src="../static/img/dumbbells.jpeg"
+          alt="dumbbells"></a>
     </div>
-
     <div id="navtext">
-      <h2 class="navtext"><a href="/user">My Profile</a></h2>
-      <h2 class="navtext"><a href="/login_button">Login</a></h2>
+      <h2 class="navtext"><a href="/my_profile">My Profile</a></h2>
+      <h2 class="navtext"><a href="/login">Login</a></h2>
       <h2 class="navtext"><a href="/logout">Logout</a></h2>
     </div>
   </nav>
@@ -31,6 +30,10 @@
   {% endfor %}
   {% block body %}{% endblock %}
   <script src="../static/js/search.js"></script>
+  <div>
+  <a href="/"><img class="main-image" style="height: 500px; width: auto; padding: 20px" src="../static/img/swolemates.jpeg"
+    alt="swolemates"></a>
+    </div>
 </body>
 
 </html>

@@ -1,4 +1,4 @@
-#restaurant-container {
+#location-container {
     border: black solid 5px;
     border-radius: 5px;
     margin-top: 10px;
@@ -20,7 +20,7 @@
     background-color: rgb(243, 202, 243);
     box-sizing: border-box;
     width: 100%;
-    padding: 30px;
+    padding: 10px;
     
 }
 
@@ -77,7 +77,7 @@ a {
         width: 50%;
     }
 
-    #restaurant-container {
+    #location-container {
         border: black solid 5px;
         border-radius: 5px;
         margin-top: 10px;
@@ -110,7 +110,7 @@ a {
         width: 75%;
     }
 
-    #restaurant-container {
+    #loocation-container {
         border: black solid 5px;
         border-radius: 5px;
         margin-top: 10px;
