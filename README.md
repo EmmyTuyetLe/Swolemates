@@ -15,6 +15,7 @@ pip3 install -r requirements.txt
 ## Methodology
 ## License 
 ## Tech Stack
+* Yelp Fusion API
 * Tailwind CSS
 * React TypeScript
 * AJAX request
