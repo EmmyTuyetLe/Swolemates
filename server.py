@@ -7,6 +7,7 @@ from yelp.client import Client
 MY_API_KEY = "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx"
 client = Client(MY_API_KEY)
 import crud
+import requests
 
 
 from jinja2 import StrictUndefined
@@ -52,7 +53,9 @@ def login_user():
             flash(f"Welcome back, {user.email}!")
             return redirect("/user_home")
         else:
-            flash("Incorrect password or email. Please try again")
+            flash("Incorrect password. Please try again")
+    else:
+        flash("Email not registered. Please register first or check that you entered your email correctly.")
     return redirect("/login")
 
 
@@ -100,6 +103,17 @@ def create_user():
         flash("Account created! Please log in.")
     
     return redirect("/login")
+
+@app.route("/search", methods=["POST"])
+def search():
+    search_term = request.args.get("search-text")
+    location = request.args.get("location-text")
+    url = "https://api.yelp.com/v3/businesses/search"
+    headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
+    params = {"term": search_term, "location": location}
+    results = requests.get(url, params=params, headers=headers)
+    results_dict = results.json()
+    businesses = results_dict["businesses"]
 
 
 if __name__ == "__main__":

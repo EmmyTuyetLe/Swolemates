@@ -67,7 +67,6 @@ def create_buddy(buddy, user):
 
     return save
 
-
 if __name__ == "__main__":
     from server import app
 

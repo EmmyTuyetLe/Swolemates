@@ -8,15 +8,15 @@
     <div class="row">
       <div class="col-7">
         <div id="welcome">
-          {% if "user_id" in session %}
-          <h2>Hi {{session["fname"]}}. We're so happy you're here!</h2>
-          {% else %}
+          {% if "user_id" not in session %}
           <h2>Welcome! Ready to get meet friends and get strong?</h2>
-          <p><u><a href="/login">Log In</a></u> to save your favorite buddies and locations</p>        
+          <p><u><a href="/login">Log In</a></u> to save your favorite buddies and locations</p>  
+          {% else %}
+          <h2>Hi {{session["fname"]}}. We're so happy you're here!</h2>
           {% endif %}
 
 <p>Search for a workout destination!</p>
-<form action="/handle-search" id="search-form">
+<form action="/search" id="search-form">
     <p style="display: inline;">
         Find: <input id="search-text" type="text" name="search-name">
         Near: <input id="location-text" type="text" name="location-name">
