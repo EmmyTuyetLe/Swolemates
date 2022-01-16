@@ -8,12 +8,15 @@
     <div class="row">
       <div class="col-7">
         <div id="welcome">
-          {% if "user_id" not in session %}
-          <h2>Welcome! Ready to get meet friends and get strong?</h2>
-          <p><u><a href="/login">Log In</a></u> to save your favorite buddies and locations</p>  
-          {% else %}
-          <h2>We're so happy you're here!</h2>
-          {% endif %}
+            <h2>Welcome {{user.fname}}. Someone is searching for their next swolemate (you)!</h2>
+            <h3>Your details</h3>
+            <p>Email: {{user.email}}</p>
+            <p>First name: {{user.fname}}</p>
+            <p>Last name: {{user.fname}}</p>
+            <p>Gender: {{user.gender}}</p>
+            <p>Preferred pronouns: {{user.pronouns}}</p>
+            <p>About me: {{user.pronouns}}</p>
+            <p>Favorite gym/location: {{user.fav_location}}</p>
 
 <h3>Search for a workout destination!</h3>
 <form action="/search" id="search-form">

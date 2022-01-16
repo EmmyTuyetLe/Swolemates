@@ -23,7 +23,7 @@ def get_users():
 
 
 def get_user_by_id(user_id):
-    """Return a user by primary key."""
+    """Return a user by user id."""
 
     return User.query.get(user_id)
 
@@ -66,6 +66,8 @@ def create_buddy(buddy, user):
     db.session.commit()
 
     return save
+
+
 
 if __name__ == "__main__":
     from server import app

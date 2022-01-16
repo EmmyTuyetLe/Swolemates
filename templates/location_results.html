@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Location results{% endblock %}
+
+
+{% block body %}
+
+<br>
+{% for location in businesses %}
+
+<h2>{{location["name"]}}</h2>
+<div>
+    <img src='{{location["image_url"]}}' alt="location image" width="auto" height="100">
+</div>
+<p>Website: <a href= '{{location["url"]}}'</a></p>
+<p>Phone number: <a href= '{{location["display_phone"]}}'</a></p>
+<p>Address: {{location["location"]["display_address"]}}<p></p>
+<p>Categories: {{location["categories"]}}</p>
+{% endfor %}
+
+{% endblock %}

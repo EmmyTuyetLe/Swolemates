@@ -5,10 +5,15 @@ from model import connect_to_db
 import os
 from yelp.client import Client
 MY_API_KEY = "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx"
-client = Client(MY_API_KEY)
-import crud
 import requests
+import crud
 
+url = "https://api.yelp.com/v3/businesses/search"
+headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
+params = {"term": "gyms", "location": "San Jose", "limit": 50, "radius": 50}
+results = requests.get(url, params=params, headers=headers)
+results_dict = results.json()
+businesses = results_dict["businesses"]
 
 from jinja2 import StrictUndefined
 
@@ -20,22 +25,15 @@ app.jinja_env.undefined = StrictUndefined
 def homepage():
     """View homepage."""
     return render_template("homepage.html")
-
-@app.route("/user_home")
-def main():
-
-    if session.get("user_id"):
-        user = crud.get_user_by_email(session.get("user_email"))   
-        return render_template("user_home.html", user=user, MY_API_KEY =MY_API_KEY)
-
-    else:
-        return render_template("homepage.html", MY_API_KEY = MY_API_KEY)
-
+    
 @app.route("/login")
 def show_login():
     """Show login form."""
-
-    return render_template("login.html")
+    if "user_id" not in session:
+        return render_template("login.html")
+    else:
+        flash("You are already logged in.")
+        return redirect("/my_profile")
 
 @app.route("/login", methods=["POST"])
 def login_user():
@@ -51,7 +49,7 @@ def login_user():
             session["user_email"] = user.email
             session["fname"] = user.fname
             flash(f"Welcome back, {user.email}!")
-            return redirect("/user_home")
+            return redirect("/my_profile")
         else:
             flash("Incorrect password. Please try again")
     else:
@@ -72,8 +70,9 @@ def logout():
 @app.route("/my_profile")
 def to_user_profile():
     """For user to view their profile"""
+    user = crud.get_user_by_email(session.get("user_email")) 
     if "user_id" in session:
-        return render_template("user_home.html")
+        return render_template("my_profile.html", user=user)
     else:
         flash("You must be logged in to see your profile.")
         return redirect("/")
@@ -104,17 +103,18 @@ def create_user():
     
     return redirect("/login")
 
-@app.route("/search", methods=["POST"])
-def search():
-    search_term = request.args.get("search-text")
-    location = request.args.get("location-text")
-    url = "https://api.yelp.com/v3/businesses/search"
-    headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
-    params = {"term": search_term, "location": location}
+@app.route("/search")
+def search(search_term="gyms", location="San Jose", search_limit=10):
+    search_term = request.args.get("term")
+    print(search_term)
+    location = request.args.get("location")
+    print(location)
+    params = {"term": search_term, "location": location, "limit": search_limit}
     results = requests.get(url, params=params, headers=headers)
     results_dict = results.json()
     businesses = results_dict["businesses"]
-
+    print(businesses)
+    return render_template("location_results.html", businesses=businesses)
 
 if __name__ == "__main__":
     connect_to_db(app)
