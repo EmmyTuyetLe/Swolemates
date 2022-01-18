@@ -116,6 +116,10 @@ def search(search_term="gyms", location="San Jose"):
     print(businesses)
     return render_template("location_results.html", businesses=businesses)
 
+# @app.route("/fav_location")
+# def fav_location(location_id):
+    
+
 # @app.route("/users_by_gym")
 #     def swolemates: 
 #          """See the users who also favorited that gym"""

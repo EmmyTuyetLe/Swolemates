@@ -12,10 +12,18 @@
 <div>
     <img src='{{location["image_url"]}}' alt="location image" width="auto" height="100">
 </div>
-<p>Website: <a href='{{location["url"]}}'></a></p>
-<p>Phone number: <a href='{{location["display_phone"]}}'></a></p>
+<p>Website: <u><b><a href='{{location["url"]}}'>Click</a></u></b> to be redirected</p>
+<p>Phone number: {{location["display_phone"]}}</p>
 <p>Address: {{location["location"]["display_address"][0], location["location"]["display_address"][1]}}<p></p>
-<p>Categories: {{location["categories"][0]["title"]}}</p>
-<p><u><a href="/users_by_gym"></a></u> See other swolemates who favorited this gym!</p>
+<p>Categories:
+    {% if location["categories"] %}
+        {% for category in location["categories"] %}   
+            <i>{{category["title"]}}</i>
+{% endfor %}
+{% endif %} </p>
+<p><u><b><a href="/fav_location">Click</a></u></b> to save this result as your favorite gym</p>
+<p><u><b><a href="/users_by_gym">Click</a></u></b> to see other swolemates who favorited this gym!</p>
 {% endfor %}
 {% endblock %}
+
+

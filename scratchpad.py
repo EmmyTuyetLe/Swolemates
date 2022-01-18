@@ -8,3 +8,11 @@
 # businesses = results_dict["businesses"]
 
 # bus1 = businesses[1]
+
+{% for location in businesses %}
+    {% if location["categories"] %}
+        {% for index in range(len(categories)) %}   
+            <p>Categories: {{categories[index]["title"]}}</p>
+{% endfor %}
+{% endif %}
+{% endfor %}

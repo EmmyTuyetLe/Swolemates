@@ -35,7 +35,7 @@ def get_user_by_email(email):
 
 
 def create_location(location_id,name):
-    """Create and return a new movie."""
+    """Create and return a new location."""
 
     location = Location(location_id=location_id, name=name)
 
@@ -55,6 +55,13 @@ def get_location_by_id(location_id):
     """Return a location by primary key."""
 
     return Location.query.get(location_id)
+
+def fav_location(location_id, user):
+    """Save a location as a favorite to an user profile"""
+    fav_location= Location.query.get(location_id)
+    saved_location=User(fav_location=fav_location)
+    db.session.add(saved_location)
+    db.session.commit()
 
 
 def create_buddy(buddy, user):
