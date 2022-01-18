@@ -104,17 +104,22 @@ def create_user():
     return redirect("/login")
 
 @app.route("/search")
-def search(search_term="gyms", location="San Jose", search_limit=10):
+def search(search_term="gyms", location="San Jose"):
     search_term = request.args.get("term")
     print(search_term)
     location = request.args.get("location")
     print(location)
-    params = {"term": search_term, "location": location, "limit": search_limit}
+    params = {"term": search_term, "location": location}
     results = requests.get(url, params=params, headers=headers)
     results_dict = results.json()
     businesses = results_dict["businesses"]
     print(businesses)
     return render_template("location_results.html", businesses=businesses)
+
+# @app.route("/users_by_gym")
+#     def swolemates: 
+#          """See the users who also favorited that gym"""
+#         def get_location_by_id();
 
 if __name__ == "__main__":
     connect_to_db(app)
