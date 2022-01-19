@@ -94,11 +94,12 @@ def create_user():
     password = request.form.get("password")
     fname = request.form.get("fname")
     lname = request.form.get("lname")
+    gender = request.form.get("gender")
     user = crud.get_user_by_email(email)
     if user:
         flash("That email is already associated with an account.")
     else:
-        crud.create_user(email, password, fname, lname)
+        crud.create_user(email, password, fname, lname, gender)
         flash("Account created! Please log in.")
     
     return redirect("/login")

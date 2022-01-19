@@ -1,95 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ db_user.fname }}'s Profile{% endblock %}
+{% block title %}Find your Swolemates{% endblock %}
 
 {% block body %}
 
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="first name" value="{{ db_user.fname }}"></div>
-                    <div class="col-md-6"><label class="labels">Last Name</label><input type="text" class="form-control" value="{{ db_user.lname }}" placeholder="surname"></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="1234 Main St" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="Apartment, studio, or floor" value=""></div>
-                    <div class="col-md-12"><label class="labels">City</label><input type="text" class="form-control" placeholder="" value=""></div>
-                    <div class="col-md-12"><label class="labels">State</label>
-                      <select id="inputState" class="form-select">
-                        <option value="AL">AL</option>
-                        <option value="AK">AK</option>
-                        <option value="AR">AR</option>	
-                        <option value="AZ">AZ</option>
-                        <option selected value="CA">CA</option>
-                        <option value="CO">CO</option>
-                        <option value="CT">CT</option>
-                        <option value="DC">DC</option>
-                        <option value="DE">DE</option>
-                        <option value="FL">FL</option>
-                        <option value="GA">GA</option>
-                        <option value="HI">HI</option>
-                        <option value="IA">IA</option>	
-                        <option value="ID">ID</option>
-                        <option value="IL">IL</option>
-                        <option value="IN">IN</option>
-                        <option value="KS">KS</option>
-                        <option value="KY">KY</option>
-                        <option value="LA">LA</option>
-                        <option value="MA">MA</option>
-                        <option value="MD">MD</option>
-                        <option value="ME">ME</option>
-                        <option value="MI">MI</option>
-                        <option value="MN">MN</option>
-                        <option value="MO">MO</option>	
-                        <option value="MS">MS</option>
-                        <option value="MT">MT</option>
-                        <option value="NC">NC</option>	
-                        <option value="NE">NE</option>
-                        <option value="NH">NH</option>
-                        <option value="NJ">NJ</option>
-                        <option value="NM">NM</option>			
-                        <option value="NV">NV</option>
-                        <option value="NY">NY</option>
-                        <option value="ND">ND</option>
-                        <option value="OH">OH</option>
-                        <option value="OK">OK</option>
-                        <option value="OR">OR</option>
-                        <option value="PA">PA</option>
-                        <option value="RI">RI</option>
-                        <option value="SC">SC</option>
-                        <option value="SD">SD</option>
-                        <option value="TN">TN</option>
-                        <option value="TX">TX</option>
-                        <option value="UT">UT</option>
-                        <option value="VT">VT</option>
-                        <option value="VA">VA</option>
-                        <option value="WA">WA</option>
-                        <option value="WI">WI</option>	
-                        <option value="WV">WV</option>
-                        <option value="WY">WY</option>
-                      </select></div>
-                    <div class="col-md-12"><label class="labels">Zip</label><input type="text" class="form-control" placeholder="" value=""></div>
-                </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Account Type</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;{{ db_user.account_type }}</span></div><br>
-                <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="enter email id" value="{{ db_user.email }}"></div>
-                <div class="col-md-12"><label class="labels">Phone Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                <div class="form-group shadow-textarea">
-                  <label for="exampleFormControlTextarea6">About Me</label>
-                  <textarea class="form-control z-depth-1 form-control rounded-0" id="exampleFormControlTextarea6" rows="10" placeholder="Tell us about yourself."></textarea>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-</div>
+<div class="container">
+    <div class="row">
+      <div class="col-7">
+        <div id="welcome">
+            <h2>Welcome {{user.fname}}. Someone is searching for their next swolemate (you)!</h2>
+            <h3>Your details</h3>
+            <p>Email: {{user.email}}</p>
+            <p>First name: {{user.fname}}</p>
+            <p>Last name: {{user.lname}}</p>
+            <p>Gender: {{user.gender}}</p>
+            <p>Preferred pronouns: {{user.pronouns}}</p>
+            <p>About me: {{user.pronouns}}</p>
+            <p>Favorite gym/location: {{user.fav_location}}</p>
+
+<h3>Search for a workout destination!</h3>
+<form action="/search" id="search-form">
+    <p style="display: inline;">
+        Find: <input id="search-text" type="text" name="term">
+        Near: <input id="location-text" type="text" name="location">
+    </p>
+    <p style="display: inline;"> <input value="Go!" id="search-button" type="submit"></p>
+</form>
+
+
 
 {% endblock %}
