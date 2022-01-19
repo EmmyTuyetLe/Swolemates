@@ -46,24 +46,24 @@ for n in range(20):
     user = crud.create_user(fname=fname, lname=lname, email=email, password=password)
     users_db.append(user)
     
-# have some users save other users
-# user1 = users[0]
-# user2 = users[1]
-# user1.buddies.append(user2)
-# save1 = Save(buddy = user1, user = user2)
-# db.session.add(save1)
-# db.session.commit()
+# # have some users save other users
+# # user1 = users[0]
+# # user2 = users[1]
+# # user1.buddies.append(user2)
+# # save1 = Save(buddy = user1, user = user2)
+# # db.session.add(save1)
+# # db.session.commit()
 
-for user in users_db: 
-    buddy = choice(users_db)
-    user = choice(users_db)
+# for user in users_db: 
+#     buddy = choice(users_db)
+#     user = choice(users_db)
 
-    if user != buddy:
+#     if user != buddy:
 
-        save = crud.create_buddy(buddy, user)
+#         save = crud.create_buddy(buddy, user)
 
-    else:
-        continue
+#     else:
+#         continue
 
     
 

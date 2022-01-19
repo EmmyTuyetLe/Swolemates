@@ -25,11 +25,13 @@
 <form id="save_location_form" method="post" action="/fav_location.json">
 <button id="fav_location" type="submit" class="btn btn-primary mt-2">Save</button> this location as your preferred gym!
 <input type="hidden" id="location_id" value={{location["id"]}}>
+<input type="hidden" id="name" value={{location["name"]}}>
 <input type="hidden" id="user_id" value = {{session.get("user_id")}}>
 </form>
 </p>
 <p><u><b><a href="/users_by_gym">Click</a></u></b> to see other swolemates who favorited this gym!</p>
 {% endfor %}
+<script src="/static/javascript/fav_location.js"></script>
 {% endblock %}
 
 

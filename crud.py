@@ -1,7 +1,6 @@
 """CRUD operations."""
 
-from model import db, Location, User, Save, connect_to_db
-
+from model import  connect_to_db, db, Location, User #, Save,
 ################ USER FUNCTIONS ##########################
 
 def create_user(email, password, fname=None, lname=None, gender=None, pronouns=None, 
@@ -57,12 +56,14 @@ def get_location_by_id(location_id):
 
     return Location.query.get(location_id)
 
-def save_location(location_id, user_id):
+def save_user_location(location_id, user_id):
     """Save a location as a favorite to an user profile"""
-    User.query.filter_by(user_id=user_id).update(
-        {"fav_location": location_id  
-        }
-    )
+    location_object = Location.query.get(location_id)
+    if location_object is None: 
+        location_object = Location(location_id=location_id)
+    user = User.query.get(user_id)
+    user.location = location_object # user objects have a relationship called location
+    db.session.add(user) # because user and location_obj are related, this db.session.add actually adds them both
     db.session.commit()
   
 ############ SAVE FUNCTIONS ################

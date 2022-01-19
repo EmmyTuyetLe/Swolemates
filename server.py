@@ -1,6 +1,6 @@
 """Server for swolemates app."""
 
-from flask import Flask, render_template, request, flash, session, redirect
+from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db
 import os
 from yelp.client import Client
@@ -122,10 +122,9 @@ def fav_location():
     """Add a user's preferred location to their user profile."""
     location_id = request.json.get("location_id")
     user_id = request.json.get("user_id")
-    
-    crud.save_location(location_id=location_id, user_id=user_id)
+    crud.save_user_location(location_id=location_id, user_id=user_id)
 
-    return { "success": True, "status": "Your location has been saved"}
+    return jsonify({ "success": True, "status": "Your location has been saved"})
 
 # @app.route("/fav_location", methods=["POST"])
 # def fav_location(location_id):
