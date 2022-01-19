@@ -16,3 +16,5 @@
 {% endfor %}
 {% endif %}
 {% endfor %}
+
+<p><u><b><a href="/fav_location">Click</a></u></b> to save this result as your favorite gym</p>

@@ -2,8 +2,9 @@
 
 from model import db, Location, User, Save, connect_to_db
 
+################ USER FUNCTIONS ##########################
 
-def create_user(email, password, fname=None,lname=None, gender=None, pronouns=None, 
+def create_user(email, password, fname=None, lname=None, gender=None, pronouns=None, 
                 about_me=None, fav_location=None):
     """Create and return a new user."""
 
@@ -14,7 +15,6 @@ def create_user(email, password, fname=None,lname=None, gender=None, pronouns=No
     db.session.commit()
 
     return user
-
 
 def get_users():
     """Return all users."""
@@ -33,6 +33,7 @@ def get_user_by_email(email):
 
     return User.query.filter(User.email == email).first()
 
+############ LOCATION FUNCTIONS ##############################
 
 def create_location(location_id,name):
     """Create and return a new location."""
@@ -56,13 +57,15 @@ def get_location_by_id(location_id):
 
     return Location.query.get(location_id)
 
-def fav_location(location_id, user):
+def save_location(location_id, user_id):
     """Save a location as a favorite to an user profile"""
-    fav_location= Location.query.get(location_id)
-    saved_location=User(fav_location=fav_location)
-    db.session.add(saved_location)
+    User.query.filter_by(user_id=user_id).update(
+        {"fav_location": location_id  
+        }
+    )
     db.session.commit()
-
+  
+############ SAVE FUNCTIONS ################
 
 def create_buddy(buddy, user):
     """Allow user to save a buddy."""

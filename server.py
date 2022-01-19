@@ -116,8 +116,23 @@ def search(search_term="gyms", location="San Jose"):
     print(businesses)
     return render_template("location_results.html", businesses=businesses)
 
-# @app.route("/fav_location")
+@app.route("/fav_location.json", methods=["POST"])
+def fav_location():
+    """Add a user's preferred location to their user profile."""
+    location_id = request.json.get("location_id")
+    user_id = request.json.get("user_id")
+    
+    crud.save_location(location_id=location_id, user_id=user_id)
+
+    return { "success": True, "status": "Your location has been saved"}
+
+# @app.route("/fav_location", methods=["POST"])
 # def fav_location(location_id):
+#     user = crud.get_user_by_id(session.get("user_id"))
+#     location_id = request.form.get("location_id")
+#     crud.save_location(location_id, user)
+#     flash("Gym saved as favorite!")
+#     return redirect("my_profile")
     
 
 # @app.route("/users_by_gym")
