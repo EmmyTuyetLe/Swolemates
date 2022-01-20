@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import  connect_to_db, db, Location, User #, Save,
+from model import  connect_to_db, db, Location, User, Save
 ################ USER FUNCTIONS ##########################
 
 def create_user(email, password, fname=None, lname=None, gender=None, pronouns=None, 
@@ -8,7 +8,7 @@ def create_user(email, password, fname=None, lname=None, gender=None, pronouns=N
     """Create and return a new user."""
 
     user = User(fname=fname, lname=lname, gender=gender, pronouns=pronouns, 
-                about_me=about_me, email=email, password=password)
+                about_me=about_me, email=email, password=password, fav_location=fav_location)
 
     db.session.add(user)
     db.session.commit()
@@ -31,6 +31,11 @@ def get_user_by_email(email):
     """Return a user by email."""
 
     return User.query.filter(User.email == email).first()
+
+def get_users_by_gym(location_id):
+    """Return a user by email."""
+
+    return User.query.filter(User.fav_location == location_id).all()
 
 ############ LOCATION FUNCTIONS ##############################
 
@@ -57,7 +62,7 @@ def get_location_by_id(location_id):
     return Location.query.get(location_id)
 
 def save_user_location(location_id, user_id):
-    """Save a location as a favorite to an user profile"""
+    """Save a location as a favorite to an user profile""" #change this to implement logic for if user wants to change location
     location_object = Location.query.get(location_id)
     if location_object is None: 
         location_object = Location(location_id=location_id)

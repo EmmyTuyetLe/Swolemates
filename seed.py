@@ -27,8 +27,10 @@ results_dict = results.json()
 businesses = results_dict["businesses"]
 
 # location1= create_location(businesses1["id"], businesses1["name"])
+locations_db = []
 for n in range(10):
     location = crud.create_location(businesses[n]["id"], businesses[n]["name"])
+    locations_db.append(location.location_id)
     
 
 
@@ -42,8 +44,10 @@ for n in range(20):
     domain = fake.free_email_domain()
     email = f'{fname}.{lname}@{domain}' 
     password = "test"
-
-    user = crud.create_user(fname=fname, lname=lname, email=email, password=password)
+    fav_location = choice(locations_db)
+    print("Fav location is:*******", fav_location)
+    user = crud.create_user(fname=fname, lname=lname, email=email, password=password, fav_location=fav_location)
+    print("User's fav location ********************", user.fav_location)
     users_db.append(user)
     
 # # have some users save other users

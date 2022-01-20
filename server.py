@@ -126,19 +126,27 @@ def fav_location():
 
     return jsonify({ "success": True, "status": "Your location has been saved"})
 
-# @app.route("/fav_location", methods=["POST"])
-# def fav_location(location_id):
-#     user = crud.get_user_by_id(session.get("user_id"))
-#     location_id = request.form.get("location_id")
-#     crud.save_location(location_id, user)
-#     flash("Gym saved as favorite!")
-#     return redirect("my_profile")
-    
 
-# @app.route("/users_by_gym")
-#     def swolemates: 
-#          """See the users who also favorited that gym"""
-#         def get_location_by_id();
+@app.route("/users_by_gym/<location_id>")
+def members(location_id): 
+    """See the users who also favorited that gym"""
+    gym_users = crud.get_users_by_gym(location_id)
+    print("this is *********", gym_users)
+    return render_template("gym_users.html", gym_users=gym_users)
+
+@app.route("/save_buddy.json", methods=["POST"])
+def save_buddy(): 
+    """Save another user as a buddy"""
+    buddy_id = request.json.get("buddy_id")
+    buddy = crud.get_user_by_id(buddy_id)
+    print("HIIIIII", buddy)
+    user_id = request.json.get("user_id")
+    user = crud.get_user_by_id(user_id)
+    print("HIIIIII", user)
+    crud.create_buddy(buddy=buddy, user=user)
+
+    return jsonify({ "success": True, "status": "Your buddy has been saved"})
+
 
 if __name__ == "__main__":
     connect_to_db(app)

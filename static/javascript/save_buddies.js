@@ -1,14 +1,17 @@
 'use strict';
 
-document.querySelector("#fav_location").addEventListener("click", evt => {
+document.querySelector("#save_buddy_form").addEventListener("submit", evt => {
   evt.preventDefault();
+  console.log("Clicked!!!!!!*******");
 
   const formInputs = {
-    location_id: document.querySelector("#location_id").value,
-    user_id: document.querySelector("#user_id").value
+    buddy_id: document.querySelector("#buddy_id").value,
+    user_id: document.querySelector("#saver_id").value
   };
 
-  fetch("/fav_location.json", {
+  console.log(formInputs);
+
+  fetch("/save_buddy.json", {
     method: "POST",
     body: JSON.stringify(formInputs),
     headers: {

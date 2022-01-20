@@ -15,7 +15,7 @@ class Location(db.Model):
     name = db.Column(db.String)
 
     def __repr__(self):
-        return f"<Location location_id={self.location_id} location_name={self.location_name}>"
+        return f"<Location location_id={self.location_id} location_name={self.name}>"
 
 
 class User(db.Model):
