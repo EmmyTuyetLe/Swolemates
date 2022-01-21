@@ -37,7 +37,7 @@ for n in range(10):
 # Create 40 users;
 users_db = []
 # gender_options = ["Cisgender-female", "Non-binary/non-conforming", "Transgender-female", "Transgender-male", "Cisgender-male"] 
-for n in range(40):
+for n in range(30):
     fname = fake.first_name()
     lname = fake.last_name()
     # gender = choice(gender_options)
@@ -50,9 +50,9 @@ for n in range(40):
     
     
 #create saves table  
-for n in range(40):
-    buddy = crud.get_user_by_id(randint(1,40))
-    user = crud.get_user_by_id(randint(1,40))
+for n in range(60):
+    buddy = crud.get_user_by_id(randint(1,30))
+    user = crud.get_user_by_id(randint(1,30))
     if buddy != user:
         crud.create_buddy(buddy=buddy, user=user)
 

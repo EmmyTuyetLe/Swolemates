@@ -20,7 +20,13 @@
             <p>Favorite gym/location: {{user.fav_location}}</p>
             <hr class="dashed">
 
-
+<label for="buddies">View your buddies:</label>
+<select name="buddies" id="buddies">
+    {% for buddy in all_buddies %}
+    <option value="buddy">{{ buddy.buddy.fname }} {{ buddy.buddy.lname }}, Contact Info: {{ buddy.buddy.email }}</option>
+</select>
+{% endfor %}
+    
 
 <h3>Search for a workout destination!</h3>
 <form action="/search" id="search-form">

@@ -67,15 +67,15 @@ def logout():
     else: 
         return redirect("/")
 
-@app.route("/my_profile")
-def to_user_profile():
-    """For user to view their profile"""
-    user = crud.get_user_by_email(session.get("user_email")) 
-    if "user_id" in session:
-        return render_template("my_profile.html", user=user)
-    else:
-        flash("You must be logged in to see your profile.")
-        return redirect("/")
+# @app.route("/my_profile")
+# def to_user_profile():
+#     """For user to view their profile"""
+#     user = crud.get_user_by_email(session.get("user_email")) 
+#     if "user_id" in session:
+#         return render_template("my_profile.html", user=user)
+#     else:
+#         flash("You must be logged in to see your profile.")
+#         return redirect("/")
 
 
 @app.route("/users")
@@ -141,12 +141,32 @@ def save_buddy():
     user = crud.get_user_by_id(user_id)
     already_saved = crud.check_save(buddy_id=buddy_id, user_id=user_id)
     if already_saved:
-        flash("You already saved that buddy.")
-        return jsonify({ "fail": False, "status": "You already saved that user."})
+        return jsonify({ "fail": False, "status": "You already saved that buddy"})
     else: 
         crud.create_buddy(buddy=buddy, user=user) 
         return jsonify({ "success": True, "status": "Your buddy has been saved"})
-
+    
+@app.route("/my_profile")
+def to_user_profile():
+    """For user to view their profile with saved buddies"""
+    user = crud.get_user_by_email(session.get("user_email")) 
+    if "user_id" in session:
+        all_buddies= crud.get_user_buddies(session["user_id"])
+        print("*******************************", all_buddies)
+        return render_template("my_profile.html", user=user, all_buddies=all_buddies)
+    else:
+        flash("You must be logged in to see your profile.")
+        return redirect("/")
+    
+# @app.route("/my_profile")
+# def get_buddies_by_user(user_id):
+#     """Getting the subscribers list."""
+#     user_id = session["user_id"]
+#     print("*********************", user_id)
+#     all_buddies= crud.get_user_buddies(user_id)
+#     print("****************", all_buddies)
+    
+#     return render_template("my_profile.html", user_id=user_id, all_buddies=all_buddies)
 
 if __name__ == "__main__":
     connect_to_db(app)

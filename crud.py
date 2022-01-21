@@ -94,11 +94,16 @@ def unsave(buddy_id, user_id):
 
     return "function complete"
     
-
+# def get_following_by_subscriber(subscriber_id):
 def get_all_saves_by_user(user_id):
     """List of all the saves for each user."""
     return Save.query.filter_by(user_id=user_id).all()
 
+def get_user_buddies(user_id):
+    """Return the save objects for buddies the user saved"""
+    saved_buddies = User.query.get(user_id).saves
+    print(saved_buddies)
+    return saved_buddies
 
 if __name__ == "__main__":
     from server import app
