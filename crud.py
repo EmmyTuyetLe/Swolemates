@@ -75,14 +75,29 @@ def save_user_location(location_id, user_id):
 
 def create_buddy(buddy, user):
     """Allow user to save a buddy."""
-
     save = Save(buddy=buddy, user=user)
-
     db.session.add(save)
     db.session.commit()
-
     return save
 
+def check_save(buddy_id, user_id):
+    return Save.query.filter(Save.buddy_id==buddy_id).filter(Save.user_id==user_id).first()
+        
+
+def unsave(buddy_id, user_id):
+    """Unsave an user as a buddy."""
+    
+    unsave = Save.query.filter(Save.buddy_id==buddy_id).filter(Save.user_id==user_id).first()
+    if unsave:
+        db.session.delete(unsave)
+        db.session.commit()
+
+    return "function complete"
+    
+
+def get_all_saves_by_user(user_id):
+    """List of all the saves for each user."""
+    return Save.query.filter_by(user_id=user_id).all()
 
 
 if __name__ == "__main__":

@@ -8,8 +8,9 @@
     <div class="row">
       <div class="col-7">
         <div id="welcome">
-            <h2>Welcome {{user.fname}}. Someone is searching for their next swolemate (you)!</h2>
-            <h3>Your details</h3>
+            <h2>Welcome {{user.fname}}</h2>
+            <hr class="dashed">
+            <h3>{{user.fname}}'s Swolemates profile</h3>
             <p>Email: {{user.email}}</p>
             <p>First name: {{user.fname}}</p>
             <p>Last name: {{user.lname}}</p>
@@ -17,6 +18,9 @@
             <p>Preferred pronouns: {{user.pronouns}}</p>
             <p>About me: {{user.pronouns}}</p>
             <p>Favorite gym/location: {{user.fav_location}}</p>
+            <hr class="dashed">
+
+
 
 <h3>Search for a workout destination!</h3>
 <form action="/search" id="search-form">

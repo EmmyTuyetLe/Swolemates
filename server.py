@@ -1,7 +1,7 @@
 """Server for swolemates app."""
 
 from flask import Flask, render_template, request, flash, session, redirect, jsonify
-from model import connect_to_db
+from model import connect_to_db, db, Location, User, Save
 import os
 from yelp.client import Client
 MY_API_KEY = "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx"
@@ -10,7 +10,7 @@ import crud
 
 url = "https://api.yelp.com/v3/businesses/search"
 headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
-params = {"term": "gyms", "location": "San Jose", "limit": 50, "radius": 50}
+params = {"term": "gyms", "location": "Sunnyvale", "limit": 50, "radius": 50}
 results = requests.get(url, params=params, headers=headers)
 results_dict = results.json()
 businesses = results_dict["businesses"]
@@ -114,7 +114,6 @@ def search(search_term="gyms", location="San Jose"):
     results = requests.get(url, params=params, headers=headers)
     results_dict = results.json()
     businesses = results_dict["businesses"]
-    print(businesses)
     return render_template("location_results.html", businesses=businesses)
 
 @app.route("/fav_location.json", methods=["POST"])
@@ -123,7 +122,6 @@ def fav_location():
     location_id = request.json.get("location_id")
     user_id = request.json.get("user_id")
     crud.save_user_location(location_id=location_id, user_id=user_id)
-
     return jsonify({ "success": True, "status": "Your location has been saved"})
 
 
@@ -135,17 +133,19 @@ def members(location_id):
     return render_template("gym_users.html", gym_users=gym_users)
 
 @app.route("/save_buddy.json", methods=["POST"])
-def save_buddy(): 
+def save_buddy():
     """Save another user as a buddy"""
     buddy_id = request.json.get("buddy_id")
     buddy = crud.get_user_by_id(buddy_id)
-    print("HIIIIII", buddy)
     user_id = request.json.get("user_id")
     user = crud.get_user_by_id(user_id)
-    print("HIIIIII", user)
-    crud.create_buddy(buddy=buddy, user=user)
-
-    return jsonify({ "success": True, "status": "Your buddy has been saved"})
+    already_saved = crud.check_save(buddy_id=buddy_id, user_id=user_id)
+    if already_saved:
+        flash("You already saved that buddy.")
+        return jsonify({ "fail": False, "status": "You already saved that user."})
+    else: 
+        crud.create_buddy(buddy=buddy, user=user) 
+        return jsonify({ "success": True, "status": "Your buddy has been saved"})
 
 
 if __name__ == "__main__":
