@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Saved swolemates{% endblock %}
+
+
+{% block body %}
+
+<br>
+{% for message in messages %}
+<hr class="dashed">
+<h2>{{ message.message}}</h2>
+{% endfor %}
+<script src="/static/javascript/send_message.js"></script>
+{% endblock %}

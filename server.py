@@ -153,6 +153,7 @@ def view_buddies():
     print("*******************************", all_buddies)
     return render_template("buddies.html", all_buddies=all_buddies)
 
+@app.route("/messages")
 def view_messages():
     """View user's messages they received"""
     messages= crud.view_messages(session["user_id"])
@@ -170,20 +171,6 @@ def send_message():
     crud.create_message(buddy=buddy, user=user, message=message) 
     return jsonify({ "success": True, "status": "Your message was sent!"})
     
-    
-# @app.route("/my_profile")
-# def to_user_profile():
-#     """For user to view their profile with saved buddies"""
-#     user = crud.get_user_by_email(session.get("user_email")) 
-#     if "user_id" in session:
-#         all_buddies= crud.get_user_buddies(session["user_id"])
-#         print("*******************************", all_buddies)
-#         return render_template("my_profile.html", user=user, all_buddies=all_buddies)
-#     else:
-#         flash("You must be logged in to see your profile.")
-#         return redirect("/")
-    
-
 
 if __name__ == "__main__":
     connect_to_db(app)
