@@ -1,6 +1,6 @@
 """CRUD operations."""
 
-from model import  connect_to_db, db, Location, User, Save
+from model import  connect_to_db, db, Location, User, Save, Message
 ################ USER FUNCTIONS ##########################
 
 def create_user(email, password, fname=None, lname=None, gender=None, pronouns=None, 
@@ -104,6 +104,21 @@ def get_user_buddies(user_id):
     saved_buddies = User.query.get(user_id).saves
     print(saved_buddies)
     return saved_buddies
+
+
+#message functions
+
+def create_message(buddy, user, message):
+    """Leave a message for a buddy"""
+    new_message = Message(buddy=buddy, user=user, message=message)
+    db.session.add(new_message)
+    db.session.commit()
+    return new_message
+
+def view_messages(user_id):
+    """List of all the messages left by others for each user."""
+    return Message.query.filter_by(buddy_id=user_id).all()
+    
 
 if __name__ == "__main__":
     from server import app

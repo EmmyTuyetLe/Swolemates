@@ -53,6 +53,26 @@ class Save(db.Model):
 
     def __repr__(self):
         return f"<Save save_id={self.save_id} buddy_id={self.buddy_id}>"
+    
+
+class Message(db.Model):
+    """User profiles that have been saved."""
+
+    __tablename__ = "messages"
+
+    message_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    buddy_id = db.Column(db.Integer, db.ForeignKey("users.user_id")) #field for user who is being receiving message
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id")) #field for current user writing message
+    message = db.Column(db.Text)
+    message_date = db.Column(db.DateTime, default=datetime.now())
+    
+    buddy = db.relationship("User", backref="receiver", foreign_keys=[buddy_id])
+    user = db.relationship("User", backref="writer", foreign_keys=[user_id]) 
+
+    def __repr__(self):
+        return f"<Message message_id={self.message_id} buddy_id={self.buddy_id} user_id={self.user_id}>"
+    
+    
 
 
 def connect_to_db(flask_app, db_uri="postgresql:///swolemates", echo=True):
@@ -64,6 +84,8 @@ def connect_to_db(flask_app, db_uri="postgresql:///swolemates", echo=True):
     db.init_app(flask_app)
 
     print("Connected to the db!")
+    
+
 
 
 if __name__ == "__main__":

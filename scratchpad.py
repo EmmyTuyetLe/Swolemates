@@ -18,3 +18,11 @@
 {% endfor %}
 
 <p><u><b><a href="/fav_location">Click</a></u></b> to save this result as your favorite gym</p>
+
+
+def sentence_length(sentence):
+    words = sentence.split(" ")
+    for word in words:
+        print (len(word))
+        
+    

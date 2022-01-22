@@ -55,6 +55,10 @@ for n in range(60):
     user = crud.get_user_by_id(randint(1,30))
     if buddy != user:
         crud.create_buddy(buddy=buddy, user=user)
+        crud.create_message(buddy=buddy, user=user, message="Hi, nice to meet you. Would love to workout sometime!")
+        
+
+
 
     
 

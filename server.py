@@ -67,15 +67,15 @@ def logout():
     else: 
         return redirect("/")
 
-# @app.route("/my_profile")
-# def to_user_profile():
-#     """For user to view their profile"""
-#     user = crud.get_user_by_email(session.get("user_email")) 
-#     if "user_id" in session:
-#         return render_template("my_profile.html", user=user)
-#     else:
-#         flash("You must be logged in to see your profile.")
-#         return redirect("/")
+@app.route("/my_profile")
+def to_user_profile():
+    """For user to view their profile"""
+    user = crud.get_user_by_email(session.get("user_email")) 
+    if "user_id" in session:
+        return render_template("my_profile.html", user=user)
+    else:
+        flash("You must be logged in to see your profile.")
+        return redirect("/")
 
 
 @app.route("/users")
@@ -146,27 +146,44 @@ def save_buddy():
         crud.create_buddy(buddy=buddy, user=user) 
         return jsonify({ "success": True, "status": "Your buddy has been saved"})
     
-@app.route("/my_profile")
-def to_user_profile():
-    """For user to view their profile with saved buddies"""
-    user = crud.get_user_by_email(session.get("user_email")) 
-    if "user_id" in session:
-        all_buddies= crud.get_user_buddies(session["user_id"])
-        print("*******************************", all_buddies)
-        return render_template("my_profile.html", user=user, all_buddies=all_buddies)
-    else:
-        flash("You must be logged in to see your profile.")
-        return redirect("/")
+@app.route("/buddies")
+def view_buddies():
+    """View user's buddies"""
+    all_buddies= crud.get_user_buddies(session["user_id"])
+    print("*******************************", all_buddies)
+    return render_template("buddies.html", all_buddies=all_buddies)
+
+def view_messages():
+    """View user's messages they received"""
+    messages= crud.view_messages(session["user_id"])
+    print("*******************************", messages)
+    return render_template("messages.html", messages=messages)
+
+@app.route("/send_message.json", methods=["POST"])
+def send_message():
+    """Send a saved buddy a message"""
+    buddy_id = request.json.get("buddy_id")
+    buddy = crud.get_user_by_id(buddy_id)
+    user_id = request.json.get("user_id")
+    user = crud.get_user_by_id(user_id)
+    message = request.json.get("message_content")
+    crud.create_message(buddy=buddy, user=user, message=message) 
+    return jsonify({ "success": True, "status": "Your message was sent!"})
+    
     
 # @app.route("/my_profile")
-# def get_buddies_by_user(user_id):
-#     """Getting the subscribers list."""
-#     user_id = session["user_id"]
-#     print("*********************", user_id)
-#     all_buddies= crud.get_user_buddies(user_id)
-#     print("****************", all_buddies)
+# def to_user_profile():
+#     """For user to view their profile with saved buddies"""
+#     user = crud.get_user_by_email(session.get("user_email")) 
+#     if "user_id" in session:
+#         all_buddies= crud.get_user_buddies(session["user_id"])
+#         print("*******************************", all_buddies)
+#         return render_template("my_profile.html", user=user, all_buddies=all_buddies)
+#     else:
+#         flash("You must be logged in to see your profile.")
+#         return redirect("/")
     
-#     return render_template("my_profile.html", user_id=user_id, all_buddies=all_buddies)
+
 
 if __name__ == "__main__":
     connect_to_db(app)
