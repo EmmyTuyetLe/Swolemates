@@ -20,8 +20,16 @@
     <input type="text" id="message_text" name="message_text">
     <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Save</button>
 </form>
+<br>
+<form id="unsave_buddy_form" method="post" action="/unsave_buddy.json">
+    <button id="unsave_buddy" type="submit" class="btn btn-primary mt-2">Unsave</button> this buddy from your swolemates
+    <input type="hidden" id="buddy_id" value={{buddy.user_id}}>
+    <input type="hidden" id="unsaver_id" value={{session.get("user_id")}}>
+</form>
+
 {% endfor %}
 <script src="/static/javascript/send_message.js"></script>
+<script src="/static/javascript/unsave_buddies.js"></script>
 {% endblock %}
 
 

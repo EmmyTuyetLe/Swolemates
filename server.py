@@ -146,6 +146,18 @@ def save_buddy():
         crud.create_buddy(buddy=buddy, user=user) 
         return jsonify({ "success": True, "status": "Your buddy has been saved"})
     
+@app.route("/unsave_buddy.json", methods=["POST"])
+def unsave_buddy():
+    """Unsave a buddy"""
+    buddy_id = request.json.get("buddy_id")
+    user_id = request.json.get("user_id")
+    already_saved = crud.check_save(buddy_id=buddy_id, user_id=user_id)
+    if not already_saved:
+        return jsonify({ "fail": False, "status": "You already removed that buddy"})
+    else: 
+        crud.unsave(buddy_id=buddy_id, user_id=user_id) 
+        return jsonify({ "success": True, "status": "Your buddy has been removed"})
+    
 @app.route("/buddies")
 def view_buddies():
     """View user's buddies"""
