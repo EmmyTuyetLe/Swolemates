@@ -169,8 +169,13 @@ def view_buddies():
 def view_messages():
     """View user's messages they received"""
     messages= crud.view_messages(session["user_id"])
-    print("*******************************", messages)
     return render_template("messages.html", messages=messages)
+
+@app.route("/sent-messages")
+def view_sent_messages():
+    """View user's messages they sent"""
+    messages= crud.view_sent_messages(session["user_id"])
+    return render_template("sent_messages.html", messages=messages)
 
 @app.route("/send_message.json", methods=["POST"])
 def send_message():

@@ -117,6 +117,10 @@ def create_message(buddy, user, message):
 def view_messages(user_id):
     """List of all the messages left by others for each user."""
     return Message.query.filter_by(buddy_id=user_id).all()
+
+def view_sent_messages(user_id):
+    """List of all the messages left by user for others."""
+    return Message.query.filter_by(user_id=user_id).all()
     
 
 if __name__ == "__main__":

@@ -8,6 +8,7 @@
 <br>
 {% for message in messages %}
 <hr class="dashed">
-<h2>{{ message.message}}</h2>
+<p>To: {{ message.buddy.fname }} {{ message.buddy.lname[0] }}</p>
+<p>{{ message.message}}</p>
 {% endfor %}
 {% endblock %}
