@@ -6,8 +6,12 @@
 {% block body %}
 
 <br>
-{% for message in messages %}
-<hr class="dashed">
-<h2>{{ message.message}}</h2>
-{% endfor %}
+{% if messages %}
+    {% for message in messages %}
+        <hr class="dashed">
+        <h2>{{ message.message}}</h2>
+    {% endfor %}
+{% else %}
+    <p>No messages received yet. Try saying hello to your <a href="/buddies"><u>saved</u> swolemates or </a><a href="/users"><u>go</u></a> find somenew ones!</p>
+{% endif %}
 {% endblock %}

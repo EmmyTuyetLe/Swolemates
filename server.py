@@ -152,6 +152,7 @@ def search(search_term="gyms", location="San Jose"):
     results = requests.get(url, params=params, headers=headers)
     results_dict = results.json()
     businesses = results_dict["businesses"]
+    print(businesses)
     return render_template("location_results.html", businesses=businesses)
 
 @app.route("/fav_location.json", methods=["POST"])

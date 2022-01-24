@@ -63,7 +63,7 @@ for n in range(25):
 female = ["Non-binary/non-conforming", "Transgender-female", "Transgender-female", "Cisgender-female", "Cisgender-female", "Cisgender-female"]
 female_pronouns = ["She/her", "She/her", "She/her", "They/them" ] 
 for n in range(25):
-    fname = fake.first_name_male()
+    fname = fake.first_name_female()
     lname = fake.last_name()
     gender = choice(female)
     pronouns = choice(female_pronouns)

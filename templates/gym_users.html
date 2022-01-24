@@ -17,9 +17,9 @@
 <p>Preferred location: {{buddy.fav_location}}</p>
 <p>{{buddy.about_me}}</p>
 <p>
-<form id="save_buddy_form" method="post" action="/save_buddy.json">
+<form class="save_buddy_form" id="buddy_form_{{buddy.user_id}}" method="post" action="/save_buddy.json">
 <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Save</button> this swolemate as a workout buddy!
-<input type="hidden" id="buddy_id" value={{buddy.user_id}}>
+<input type="hidden" id="buddy_id_{{buddy.user_id}}" value={{buddy.user_id}}>
 <input type="hidden" id="saver_id" value={{session.get("user_id")}}>
 </form>
 </p>

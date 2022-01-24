@@ -6,9 +6,13 @@
 {% block body %}
 
 <br>
-{% for message in messages %}
-<hr class="dashed">
-<p>To: {{ message.buddy.fname }} {{ message.buddy.lname[0] }}</p>
-<p>{{ message.message}}</p>
-{% endfor %}
+{% if messages %}
+    {% for message in messages %}
+        <hr class="dashed">
+        <p>To: {{ message.buddy.fname }} {{ message.buddy.lname[0] }}</p>
+        <p>{{ message.message}}</p>
+    {% endfor %}
+{% else %}
+    <p>No messages sent yet. Try saying hello to your <a href="/buddies"><u>saved</u> swolemates or </a><a href="/users"><u>go</u></a> find some new ones!</p>
+{% endif %}
 {% endblock %}
