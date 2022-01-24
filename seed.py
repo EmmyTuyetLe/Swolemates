@@ -35,10 +35,12 @@ for n in range(10):
 
 
 # Create 25 male users;
-bio = ["I love rockclimbing and am looking for someone to get into climbing with! I prefer climbing in the evenings after 5 pm.",
-       "Looking to meet someone to lift heavy weights with! Current prs - D: 445, S: 340 B: 275. I prefer to lift in the mornings from 5am to 8am",
+bio = ["In addition to lifting, I love rockclimbing and am looking for someone to get into climbing with! I prefer climbing in the evenings after 5 pm.",
+       "Looking to meet someone to lift heavy weights with! Current prs - D: 445, S: 340 B: 275. I prefer to lift in the mornings from 5am to 8am.",
        "New to fitness and feeling anxious about going to the gym, would love someone to start my fitness journey with. Schedule is pretty open!",
-       "I love cardio and am looking for someone to do spin/group fitness classes with! Open to mornings or evenings."]
+       "I love cardio and am looking for someone to do spin/group fitness classes with! Open to mornings or evenings.",
+       "I am new to lifting and am hoping to pair up with a more experienced swolemate to help me learn proper form and best practices!",
+       "New to lifting and am open to swolemates, but would prefer someone of the same gender please."]
 users_db = []
 male = ["Non-binary/non-conforming", "Transgender-male", "Transgender-male", "Cisgender-male", "Cisgender-male", "Cisgender-male"]
 male_pronouns = ["He/him", "He/him", "He/him", "They/them" ] 

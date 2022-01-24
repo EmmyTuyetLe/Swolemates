@@ -9,8 +9,8 @@
       <div class="col-7">
         <div id="welcome">
           {% if "user_id" not in session %}
-          <h2>Welcome! Ready to get meet friends and get strong?</h2>
-          <p><u><a href="/login">Log In</a></u> to save your favorite buddies and locations</p>  
+          <h2>Welcome! Ready to meet swolemates and get strong?</h2>
+          <p><u><a href="/login">Log In</a></u> to save your favorite swolemates and locations</p>  
           {% else %}
           <h2>We're so happy you're here!</h2>
           {% endif %}
@@ -24,6 +24,9 @@
     <p style="display: inline;"> <input value="Go!" id="search-button" type="submit"></p>
 </form>
 
-
+<div>
+  <a href="/"><img class="main-image" style="height: 500px; width: auto; padding: 20px" src="../static/img/swolemates.jpeg"
+    alt="swolemates"></a>
+    </div>
 
 {% endblock %}

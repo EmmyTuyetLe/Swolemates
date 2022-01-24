@@ -1,23 +1,32 @@
 'use strict';
 
-document.querySelector("#fav_location").addEventListener("click", evt => {
-  evt.preventDefault();
+let forms = document.querySelectorAll(".save_location_form")
 
-  const formInputs = {
-    location_id: document.querySelector("#location_id").value,
-    user_id: document.querySelector("#user_id").value
-  };
+for (let form of forms){
+  form.addEventListener("submit", (evt) => {
+    evt.preventDefault();
 
-  fetch("/fav_location.json", {
-    method: "POST",
-    body: JSON.stringify(formInputs),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then(response => response.json())
-    .then(responseJson => {
-      alert(responseJson.status);
-    });
-});
+    let locationId = evt.target.id.split("_")[2]
+  
+    const formInputs = {
+      location_id: document.querySelector(`#location_id_${locationId}`).value,
+      location_name: document.querySelector(`#location_name_${locationId}`).value,
+      user_id: document.querySelector("#user_id").value
+    };
+
+    console.log(formInputs)
+    fetch("/fav_location.json", {
+      method: "POST",
+      body: JSON.stringify(formInputs),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        alert(responseJson.status);
+      });
+  });
+}
+
 

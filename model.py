@@ -33,7 +33,7 @@ class User(db.Model):
     about_me = db.Column(db.Text)
     fav_location = db.Column(db.String, db.ForeignKey("locations.location_id"))
     
-    location = db.relationship("Location", backref="users") # relathip attribute on sqla object expcet to recieve object
+    location = db.relationship("Location", backref="users") # relationship attribute on sqla object expcet to recieve object
     #buddies (all the people who the user saved, displays with user_id, displayed with list of users)
     def __repr__(self):
         return f"<User user_id={self.user_id} fname={self.fname} lname={self.lname}>"

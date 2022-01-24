@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Saved swolemates{% endblock %}
+
+
+{% block body %}
+
+<br>
+{% for user in users %}
+<hr class="dashed">
+<h2>{{ user.fname }} {{ user.lname[0]}}</h2>
+<p>Email: <u></u>{{user.email}}</u></p>
+<p>Gender: {{user.gender}}</p>
+<p>Preferred pronouns: {{user.pronouns}}</p>
+<p>About me: {{user.about_me}}</p>
+<h4>Send {{ user.fname }} a message!</h4>
+<form id="send_message_form" method="post" action="/send_message.json">
+    <input type="hidden" id="buddy_id" value={{user.user_id}}>
+    <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
+    <input type="text" id="message_text" name="message_text">
+    <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Send</button>
+</form>
+<br>
+<form id="save_buddy_form" method="post" action="/save_buddy.json">
+    <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Save</button> this swolemate as a workout buddy!
+    <input type="hidden" id="buddy_id" value={user.user_id}}>
+    <input type="hidden" id="saver_id" value={{session.get("user_id")}}>
+</form>
+
+{% endfor %}
+<script src="/static/javascript/send_message.js"></script>
+<script src="/static/javascript/save_buddies.js"></script>
+{% endblock %}
+
+
+
+
+

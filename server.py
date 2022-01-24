@@ -1,12 +1,58 @@
 """Server for swolemates app."""
 
-from flask import Flask, render_template, request, flash, session, redirect, jsonify
+from flask import Flask, render_template, request, flash, session, redirect, jsonify, url_for
 from model import connect_to_db, db, Location, User, Save
+from authlib.integrations.flask_client import OAuth
 import os
+import bcrypt
 from yelp.client import Client
 MY_API_KEY = "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx"
 import requests
 import crud
+from jinja2 import StrictUndefined
+
+app = Flask(__name__)
+app.secret_key = "dev"
+app.jinja_env.undefined = StrictUndefined
+
+# oauth = OAuth(app)
+# google = oauth.register(
+# name="google",
+# client_id="1095412791174-qtvreoopct68oqaa0d5vr51a6h70753i.apps.googleusercontent.com",
+# client_secret=os.environ["CLIENT_SECRET"],
+# access_token_url="https://accounts.google.com/o/oauth2/token",
+# access_token_params=None,
+# authorize_url="https://accounts.google.com/o/oauth2/auth",
+# authorize_params=None,
+# api_base_url="https://www.googleapis.com/oauth2/v1/",
+# client_kwargs={"scope": "openid profile email"}
+# )
+
+# @app.route("/google-login")
+# def login():
+#     google = oauth.create_client("google")
+#     redirect_uri = url_for("authorize", _external=True)
+#     return google.authorize_redirect(redirect_uri)
+
+# @app.route("/authorize")
+# def authorize():
+#     google = oauth.create_client("google")
+#     token = google.authorize_access_token()
+#     print("\n", "*"*20, token,"\n")
+#     resp = google.get("userinfo")
+#     resp.raise_for_status()
+#     profile = resp.json()
+#     print("\n", "*"*20, profile,"\n")
+#     if crud.get_user_by_email(profile["email"]):
+#         user = crud.get_user_by_email(profile["email"])
+#         session["user_id"] = user.user_id
+#     else:
+#         hashed_password = bcrypt.hashpw(profile['id'].encode('utf8'), bcrypt.gensalt())
+#         username = profile["given_name"]
+#         crud.create_user(profile["email"], hashed_password, username)
+#         user = crud.get_user_by_email(profile["email"])
+#         session["user_id"] = user.user_id
+#     return redirect("/")
 
 url = "https://api.yelp.com/v3/businesses/search"
 headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
@@ -14,12 +60,6 @@ params = {"term": "gyms", "location": "Sunnyvale", "limit": 50, "radius": 50}
 results = requests.get(url, params=params, headers=headers)
 results_dict = results.json()
 businesses = results_dict["businesses"]
-
-from jinja2 import StrictUndefined
-
-app = Flask(__name__)
-app.secret_key = "dev"
-app.jinja_env.undefined = StrictUndefined
 
 @app.route("/")
 def homepage():
@@ -84,7 +124,7 @@ def all_users():
 
     users = crud.get_users()
 
-    return render_template("users.html", users=users)
+    return render_template("all_buddies.html", users=users)
 
 
 @app.route("/create-user", methods=["POST"])
@@ -107,9 +147,7 @@ def create_user():
 @app.route("/search")
 def search(search_term="gyms", location="San Jose"):
     search_term = request.args.get("term")
-    print(search_term)
     location = request.args.get("location")
-    print(location)
     params = {"term": search_term, "location": location}
     results = requests.get(url, params=params, headers=headers)
     results_dict = results.json()
@@ -118,11 +156,18 @@ def search(search_term="gyms", location="San Jose"):
 
 @app.route("/fav_location.json", methods=["POST"])
 def fav_location():
-    """Add a user's preferred location to their user profile."""
+    """Add a user"s preferred location to their user profile."""
     location_id = request.json.get("location_id")
+    name = request.json.get("location_name")
     user_id = request.json.get("user_id")
-    crud.save_user_location(location_id=location_id, user_id=user_id)
-    return jsonify({ "success": True, "status": "Your location has been saved"})
+    location = crud.get_location_by_id(location_id)
+    if location is None:
+        crud.create_location(location_id=location_id, name=name)
+        crud.save_user_location(location_id=location_id, user_id=user_id)
+        return jsonify({ "success": True, "status": "Your location has been saved"})
+    else:
+        crud.save_user_location(location_id=location_id, user_id=user_id)
+        return jsonify({ "success": True, "status": "Your location has been saved"})
 
 
 @app.route("/users_by_gym/<location_id>")
@@ -160,20 +205,20 @@ def unsave_buddy():
     
 @app.route("/buddies")
 def view_buddies():
-    """View user's buddies"""
+    """View user"s buddies"""
     all_buddies= crud.get_user_buddies(session["user_id"])
     print("*******************************", all_buddies)
     return render_template("buddies.html", all_buddies=all_buddies)
 
 @app.route("/messages")
 def view_messages():
-    """View user's messages they received"""
+    """View user"s messages they received"""
     messages= crud.view_messages(session["user_id"])
     return render_template("messages.html", messages=messages)
 
 @app.route("/sent-messages")
 def view_sent_messages():
-    """View user's messages they sent"""
+    """View user"s messages they sent"""
     messages= crud.view_sent_messages(session["user_id"])
     return render_template("sent_messages.html", messages=messages)
 
