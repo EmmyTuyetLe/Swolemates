@@ -110,9 +110,10 @@ def logout():
 @app.route("/my_profile")
 def to_user_profile():
     """For user to view their profile"""
-    user = crud.get_user_by_email(session.get("user_email")) 
+    user = crud.get_user_by_email(session.get("user_email"))
+    location =  crud.get_location_by_id(user.fav_location)
     if "user_id" in session:
-        return render_template("my_profile.html", user=user)
+        return render_template("my_profile.html", user=user, location=location)
     else:
         flash("You must be logged in to see your profile.")
         return redirect("/")
@@ -152,7 +153,6 @@ def search(search_term="gyms", location="San Jose"):
     results = requests.get(url, params=params, headers=headers)
     results_dict = results.json()
     businesses = results_dict["businesses"]
-    print(businesses)
     return render_template("location_results.html", businesses=businesses)
 
 @app.route("/fav_location.json", methods=["POST"])
@@ -161,9 +161,10 @@ def fav_location():
     location_id = request.json.get("location_id")
     name = request.json.get("location_name")
     user_id = request.json.get("user_id")
+    # url = request.json.get("location_url")
     location = crud.get_location_by_id(location_id)
     if location is None:
-        crud.create_location(location_id=location_id, name=name)
+        crud.create_location(location_id=location_id, name=name, url=url)
         crud.save_user_location(location_id=location_id, user_id=user_id)
         return jsonify({ "success": True, "status": "Your location has been saved"})
     else:
@@ -230,7 +231,7 @@ def send_message():
     buddy = crud.get_user_by_id(buddy_id)
     user_id = request.json.get("user_id")
     user = crud.get_user_by_id(user_id)
-    message = request.json.get("message_content")
+    message = request.json.get("message_text")
     crud.create_message(buddy=buddy, user=user, message=message) 
     return jsonify({ "success": True, "status": "Your message was sent!"})
     

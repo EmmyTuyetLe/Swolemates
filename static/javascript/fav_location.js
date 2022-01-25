@@ -11,6 +11,7 @@ for (let form of forms){
     const formInputs = {
       location_id: document.querySelector(`#location_id_${locationId}`).value,
       location_name: document.querySelector(`#location_name_${locationId}`).value,
+      // location_url: document.querySelector(`#location_url_${locationId}`).value,
       user_id: document.querySelector("#user_id").value
     };
 

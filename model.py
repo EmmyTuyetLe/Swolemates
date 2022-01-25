@@ -13,6 +13,7 @@ class Location(db.Model):
 
     location_id = db.Column(db.String, primary_key=True)
     name = db.Column(db.String)
+    url = db.Column(db.String)
 
     def __repr__(self):
         return f"<Location location_id={self.location_id} location_name={self.name}>"

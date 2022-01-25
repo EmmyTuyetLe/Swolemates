@@ -29,22 +29,22 @@ businesses = results_dict["businesses"]
 # location1= create_location(businesses1["id"], businesses1["name"])
 locations_db = []
 for n in range(10):
-    location = crud.create_location(businesses[n]["id"], businesses[n]["name"])
+    location = crud.create_location(businesses[n]["id"], businesses[n]["name"], businesses[n]["url"] )
     locations_db.append(location.location_id)
     
 
 
-# Create 25 male users;
-bio = ["In addition to lifting, I love rockclimbing and am looking for someone to get into climbing with! I prefer climbing in the evenings after 5 pm.",
+# Create 20 male users;
+bio = ["In addition to lifting, I love rockclimbing and am looking for someone to get into climbing with! I prefer climbing in the evenings after 5 pm. Open to any gyms within a reasonable distance of Sunnyvale.",
        "Looking to meet someone to lift heavy weights with! Current prs - D: 445, S: 340 B: 275. I prefer to lift in the mornings from 5am to 8am.",
-       "New to fitness and feeling anxious about going to the gym, would love someone to start my fitness journey with. Schedule is pretty open!",
+       "New to fitness and feeling anxious about going to the gym, would love someone to start my fitness journey with. Schedule is pretty open! Open to any gyms within a reasonable distance of Sunnyvale.",
        "I love cardio and am looking for someone to do spin/group fitness classes with! Open to mornings or evenings.",
        "I am new to lifting and am hoping to pair up with a more experienced swolemate to help me learn proper form and best practices!",
-       "New to lifting and am open to swolemates, but would prefer someone of the same gender please."]
+       "New to lifting and am open to swolemates, but would prefer someone of the same gender please. Open to any gyms within a half hour drive of San Jose."]
 users_db = []
-male = ["Non-binary/non-conforming", "Transgender-male", "Transgender-male", "Cisgender-male", "Cisgender-male", "Cisgender-male"]
-male_pronouns = ["He/him", "He/him", "He/him", "They/them" ] 
-for n in range(25):
+male = ["Transgender-male", "Transgender-male", "Cisgender-male", "Cisgender-male", "Cisgender-male"]
+male_pronouns = ["He/him", "He/him", "He/him"] 
+for n in range(20):
     fname = fake.first_name_male()
     lname = fake.last_name()
     gender = choice(male)
@@ -60,9 +60,9 @@ for n in range(25):
     
 # Create 30 female users;
     
-female = ["Non-binary/non-conforming", "Transgender-female", "Transgender-female", "Cisgender-female", "Cisgender-female", "Cisgender-female"]
-female_pronouns = ["She/her", "She/her", "She/her", "They/them" ] 
-for n in range(25):
+female = ["Transgender-female", "Transgender-female", "Cisgender-female", "Cisgender-female", "Cisgender-female"]
+female_pronouns = ["She/her", "She/her", "She/her"] 
+for n in range(30):
     fname = fake.first_name_female()
     lname = fake.last_name()
     gender = choice(female)
@@ -74,7 +74,23 @@ for n in range(25):
     fav_location = choice(locations_db)
     user = crud.create_user(fname=fname, lname=lname, email=email, password=password, 
                         fav_location=fav_location, pronouns=pronouns, gender=gender, about_me=about_me)
-    users_db.append(user) 
+    users_db.append(user)
+    
+# Create 20 nonbinary users;
+    
+for n in range(20):
+    fname = fake.first_name()
+    lname = fake.last_name()
+    gender = "Non-binary/non-conforming"
+    pronouns = "They/them"
+    domain = fake.free_email_domain()
+    email = f'{fname}.{lname}@{domain}' 
+    password = "test"
+    about_me = choice(bio)
+    fav_location = choice(locations_db)
+    user = crud.create_user(fname=fname, lname=lname, email=email, password=password, 
+                        fav_location=fav_location, pronouns=pronouns, gender=gender, about_me=about_me)
+    users_db.append(user)
 
 
      

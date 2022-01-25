@@ -24,4 +24,3 @@ document.querySelector("#send_message_form").addEventListener("submit", evt => {
       alert(responseJson.status);
     });
 });
-

@@ -23,4 +23,3 @@ document.querySelector("#unsave_buddy_form").addEventListener("submit", evt => {
       alert(responseJson.status);
     });
 });
-

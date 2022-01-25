@@ -39,10 +39,10 @@ def get_users_by_gym(location_id):
 
 ############ LOCATION FUNCTIONS ##############################
 
-def create_location(location_id,name):
+def create_location(location_id,name, url=None):
     """Create and return a new location."""
 
-    location = Location(location_id=location_id, name=name)
+    location = Location(location_id=location_id, name=name, url=url)
 
     db.session.add(location)
     db.session.commit()
