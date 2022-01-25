@@ -14,6 +14,7 @@
         <p>Gender: {{buddy.buddy.gender}}</p>
         <p>Preferred pronouns: {{buddy.buddy.pronouns}}</p>
         <p>About me: {{buddy.buddy.about_me}}</p>
+        <p>Favorite gym/location: <a href='{{buddy.buddy.location["url"]}}'><u>{{buddy.buddy.location.name}}</a></u> </p>
         <h4>Send {{ buddy.buddy.fname }} a message!</h4>
         <form class="send_message_form" id="sendmessage_form_{{buddy.buddy.user_id}}" method="post" action="/send_message.json">
             <input type="hidden" id="buddy_id_{{buddy.buddy.user_id}}" value={{buddy.buddy.user_id}}>
@@ -31,9 +32,13 @@
 {% else %}
     <p>No swolemates saved yet. Go say hello to some new <a href="/users"><u>swolemates</u></a></p>
 {% endif %}
-<script src="/static/javascript/send_message.js"></script>
-<script src="/static/javascript/unsave_buddies.js"></script>
+<!-- <script src="/static/javascript/send_message.js"></script>
+<script src="/static/javascript/unsave_buddies.js"></script> -->
 {% endblock %}
+
+
+
+
 
 
 

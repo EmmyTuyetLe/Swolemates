@@ -1,20 +1,26 @@
 'use strict';
+console.log('hellllooooooooo')
+let sendMessageForms = document.querySelectorAll(".send_message_form")
+console.log('TEST 1');
 
-let forms = document.querySelectorAll(".send_message_form")
-console.log(forms)
-
-for (let form of forms){
+for (let form of sendMessageForms){
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
 
+    console.log('TEST 2')
+
+
     let buddyId = evt.target.id.split("_")[2]
-    console.log(buddyId);
+    console.log("*********", buddyId);
   
     const formInputs = {
       buddy_id: document.querySelector(`#buddy_id_${buddyId}`).value,
-      user_id: document.querySelector("#unsaver_id").value,
+      user_id: document.querySelector("#sender_id").value,
       message_content: document.querySelector("#message_text").value
     };
+
+    console.log('TEST 3')
+
 
     console.log(formInputs)
     fetch("/send_message.json", {

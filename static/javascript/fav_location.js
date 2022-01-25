@@ -1,8 +1,8 @@
 'use strict';
 
-let forms = document.querySelectorAll(".save_location_form")
+let locationForms = document.querySelectorAll(".save_location_form")
 
-for (let form of forms){
+for (let form of locationForms){
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
 

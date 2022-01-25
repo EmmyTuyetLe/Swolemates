@@ -1,8 +1,8 @@
 'use strict';
 
-let forms = document.querySelectorAll(".save_buddy_form")
+let saveBuddyForms = document.querySelectorAll(".save_buddy_form")
 
-for (let form of forms){
+for (let form of saveBuddyForms){
   console.log(form);
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();

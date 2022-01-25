@@ -1,8 +1,8 @@
 'use strict';
 
-let forms = document.querySelectorAll(".unsave_buddy_form")
+let unsaveForms = document.querySelectorAll(".unsave_buddy_form")
 
-for (let form of forms){
+for (let form of unsaveForms){
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
 
@@ -30,5 +30,4 @@ for (let form of forms){
       });
   });
 }
-
 

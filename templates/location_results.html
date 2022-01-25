@@ -26,7 +26,6 @@
             <button id="fav_location" type="submit" class="btn btn-primary mt-2">Save</button> this location as your preferred gym!
             <input type="hidden" id="location_id_{{location['id']}}" value={{location["id"]}}>
             <input type="hidden" id="location_name_{{location['id']}}" value={{location["name"]}}>
-            <!-- <input type="hidden" id="location_url_{{location['id']}}" value={{location["url"]}}> -->
             <input type="hidden" id="user_id" value = {{session.get("user_id")}}>
         </form>
     </p>

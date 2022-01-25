@@ -1,36 +1,52 @@
 {% extends 'base.html' %}
-
-{% block title %}Saved swolemates{% endblock %}
+{% block title %}Swolemates{% endblock %}
 
 
 {% block body %}
 
-<br>
+<div class="container">
+    <div class="row">
+      <div class="col-7">
+        <div id="buddies">
 {% for buddy in users %}
-    <hr class="dashed">
-    <h2>{{ buddy.fname }} {{ buddy.lname[0]}}</h2>
-    <p>Email: <u></u>{{buddy.email}}</u></p>
-    <p>Gender: {{buddy.gender}}</p>
-    <p>Preferred pronouns: {{buddy.pronouns}}</p>
-    <p>About me: {{buddy.about_me}}</p>
-<h4>Send {{ buddy.fname }} a message!</h4>
-<form id="send_message_form" method="post" action="/send_message.json">
-    <input type="hidden" id="buddy_id" value={{buddy.user_id}}>
-    <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
-    <input type="text" id="message_text" name="message_text">
-    <button id="send_message" type="submit" class="btn btn-primary mt-2">Send</button>
-</form>
-<br>
-<form class="save_buddy_form" id="buddy_form_{{buddy.user_id}}" method="post" action="/save_buddy.json">
-    <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Save</button> this swolemate as a workout buddy!
-    <input type="hidden" id="buddy_id_{{buddy.user_id}}" value={{buddy.user_id}}>
-    <input type="hidden" id="saver_id" value={{session.get("user_id")}}>
+  <hr class="dashed">
+  <p>Swolemate name: <b>{{buddy.fname}} {{buddy.lname[0]}}</b></p>
+  <p>Email: <u></u>{{buddy.email}}</u></p>
+  <p>Gender: {{buddy.gender}}</p>
+  <p>Preferred pronouns: {{buddy.pronouns}}</p>
+  <p>{{buddy.about_me}}</p>
+  <p>Favorite gym/location: <a href='{{buddy.location["url"]}}'><u>{{buddy.location.name}}</a></u> </p>
+  <p>
+    <form class="save_buddy_form" id="buddy_form_{{buddy.user_id}}" method="post" action="/save_buddy.json">
+      <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Save</button> this swolemate as a workout buddy!
+      <input type="hidden" id="buddy_id_{{buddy.user_id}}" value={{buddy.user_id}}>
+      <input type="hidden" id="saver_id" value={{session.get("user_id")}}>
     </form>
-
+  </p>
+  <p>Send {{ buddy.fname }} a message!</p>
+  <p>
+      <form class="send_message_form" id="sendmessage_form_{{buddy.user_id}}" method="post" action="/send_message.json">
+        <input type="hidden" id="buddy_id_{{buddy.user_id}}" value={{buddy.user_id}}>
+        <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
+        <input type="text" id="message_text" name="message_text">
+        <button id="send_message" type="submit" class="btn btn-primary mt-2">Send</button>
+      </form>
+  </p>
 {% endfor %}
-<script src="/static/javascript/send_message.js"></script>
-<script src="/static/javascript/save_buddies.js"></script>
+<!-- <script src="/static/javascript/save_buddies.js"></script>
+<script src="/static/javascript/send_message.js"></script> -->
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

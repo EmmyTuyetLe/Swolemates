@@ -196,12 +196,12 @@ def save_buddy():
 @app.route("/unsave_buddy.json", methods=["POST"])
 def unsave_buddy():
     """Unsave a buddy"""
+    print("******",request.json)
+    # import pdb; pdb.set_trace()
     buddy_id = request.json.get("buddy_id")
-    print(buddy_id)
-    buddy = crud.get_user_by_id(buddy_id)
+    print("******", buddy_id)
     user_id = request.json.get("user_id")
     print(user_id)
-    user = crud.get_user_by_id(user_id)
     already_saved = crud.check_save(buddy_id=buddy_id, user_id=user_id)
     print(already_saved)
     if already_saved:
@@ -214,7 +214,6 @@ def unsave_buddy():
 def view_buddies():
     """View user"s buddies"""
     all_buddies= crud.get_user_buddies(session["user_id"])
-    print("*******************************", all_buddies)
     return render_template("buddies.html", all_buddies=all_buddies)
 
 @app.route("/messages")
@@ -233,10 +232,13 @@ def view_sent_messages():
 def send_message():
     """Send a saved buddy a message"""
     buddy_id = request.json.get("buddy_id")
+    print("********",buddy_id)
     buddy = crud.get_user_by_id(buddy_id)
     user_id = request.json.get("user_id")
+    print(user_id)
     user = crud.get_user_by_id(user_id)
     message = request.json.get("message_text")
+    print(message)
     crud.create_message(buddy=buddy, user=user, message=message) 
     return jsonify({ "success": True, "status": "Your message was sent!"})
     
