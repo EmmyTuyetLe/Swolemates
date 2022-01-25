@@ -1,25 +1,34 @@
 'use strict';
 
-document.querySelector("#unsave_buddy_form").addEventListener("submit", evt => {
-  evt.preventDefault();
-  console.log("Clicked!!!!!!*******");
+let forms = document.querySelectorAll(".unsave_buddy_form")
 
-  const formInputs = {
-    buddy_id: document.querySelector("#buddy_id").value,
-    user_id: document.querySelector("#unsaver_id").value
-  };
+for (let form of forms){
+  form.addEventListener("submit", (evt) => {
+    evt.preventDefault();
 
-  console.log(formInputs);
+    let buddyId = evt.target.id.split("_")[2]
+    console.log(buddyId);
+  
+    const formInputs = {
+      buddy_id: document.querySelector(`#buddy_id_${buddyId}`).value,
+      user_id: document.querySelector("#unsaver_id").value
+    };
 
-  fetch("/unsave_buddy.json", {
-    method: "POST",
-    body: JSON.stringify(formInputs),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then(response => response.json())
-    .then(responseJson => {
-      alert(responseJson.status);
-    });
-});
+    console.log(formInputs)
+    fetch("/unsave_buddy.json", {
+      method: "POST",
+      body: JSON.stringify(formInputs),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson);
+        alert(responseJson.status);
+        
+      });
+  });
+}
+
+

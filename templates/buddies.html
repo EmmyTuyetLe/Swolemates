@@ -22,9 +22,9 @@
             <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Send</button>
         </form>
         <br>
-        <form id="unsave_buddy_form" method="post" action="/unsave_buddy.json">
+        <form class="unsave_buddy_form" id="unsavebuddy_form_{{buddy.buddy.user_id}}" method="post" action="/unsave_buddy.json">
             <button id="unsave_buddy" type="submit" class="btn btn-primary mt-2">Unsave</button> this buddy from your swolemates
-            <input type="hidden" id="buddy_id" value={{buddy.user_id}}>
+            <input type="hidden" id="buddy_id_{{buddy.buddy.user_id}}" value={{buddy.buddy.user_id}}>
             <input type="hidden" id="unsaver_id" value={{session.get("user_id")}}>
         </form>
     {% endfor %}
