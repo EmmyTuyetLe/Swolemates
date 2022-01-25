@@ -15,11 +15,11 @@
         <p>Preferred pronouns: {{buddy.buddy.pronouns}}</p>
         <p>About me: {{buddy.buddy.about_me}}</p>
         <h4>Send {{ buddy.buddy.fname }} a message!</h4>
-        <form id="send_message_form" method="post" action="/send_message.json">
-            <input type="hidden" id="buddy_id" value={{buddy.buddy.user_id}}>
+        <form class="send_message_form" id="sendmessage_form_{{buddy.buddy.user_id}}" method="post" action="/send_message.json">
+            <input type="hidden" id="buddy_id_{{buddy.buddy.user_id}}" value={{buddy.buddy.user_id}}>
             <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
             <input type="text" id="message_text" name="message_text">
-            <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Send</button>
+            <button id="send_message" type="submit" class="btn btn-primary mt-2">Send</button>
         </form>
         <br>
         <form class="unsave_buddy_form" id="unsavebuddy_form_{{buddy.buddy.user_id}}" method="post" action="/unsave_buddy.json">
