@@ -19,6 +19,13 @@
       <h2 class="navtext"><a href="/users">Find a Swolemate!</a></h2>
       <h2 class="navtext"><a href="/login">Login</a></h2>
       <h2 class="navtext"><a href="/logout">Logout</a></h2>
+      <form action="/search" id="search-form">
+        <p style="display: inline;">
+            Find: <input id="search-text" type="text" name="term" placeholder='i.e. "gym" "rockclimbing"'>
+            Near: <input id="location-text" type="text" name="location" placeholder="i.e. your city/zipcode">
+        </p>
+        <p style="display: inline;"> <input value="Go!" id="search-button" type="submit"></p>
+    </form>
     </div>
   </nav>
 </header>

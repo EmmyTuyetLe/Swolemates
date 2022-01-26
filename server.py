@@ -6,7 +6,7 @@ from authlib.integrations.flask_client import OAuth
 import os
 import bcrypt
 from yelp.client import Client
-MY_API_KEY = "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx"
+MY_API_KEY = os.environ["API_KEY"]
 import requests
 import crud
 from jinja2 import StrictUndefined
@@ -15,44 +15,44 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
-# oauth = OAuth(app)
-# google = oauth.register(
-# name="google",
-# client_id="1095412791174-qtvreoopct68oqaa0d5vr51a6h70753i.apps.googleusercontent.com",
-# client_secret=os.environ["CLIENT_SECRET"],
-# access_token_url="https://accounts.google.com/o/oauth2/token",
-# access_token_params=None,
-# authorize_url="https://accounts.google.com/o/oauth2/auth",
-# authorize_params=None,
-# api_base_url="https://www.googleapis.com/oauth2/v1/",
-# client_kwargs={"scope": "openid profile email"}
-# )
+oauth = OAuth(app)
+google = oauth.register(
+name="google",
+client_id="1095412791174-qtvreoopct68oqaa0d5vr51a6h70753i.apps.googleusercontent.com",
+client_secret=os.environ["CLIENT_SECRET"],
+access_token_url="https://accounts.google.com/o/oauth2/token",
+access_token_params=None,
+authorize_url="https://accounts.google.com/o/oauth2/auth",
+authorize_params=None,
+api_base_url="https://www.googleapis.com/oauth2/v1/",
+client_kwargs={"scope": "openid profile email"}
+)
 
-# @app.route("/google-login")
-# def login():
-#     google = oauth.create_client("google")
-#     redirect_uri = url_for("authorize", _external=True)
-#     return google.authorize_redirect(redirect_uri)
+@app.route("/google-login")
+def login():
+    google = oauth.create_client("google")
+    redirect_uri = url_for("authorize", _external=True)
+    return google.authorize_redirect(redirect_uri)
 
-# @app.route("/authorize")
-# def authorize():
-#     google = oauth.create_client("google")
-#     token = google.authorize_access_token()
-#     print("\n", "*"*20, token,"\n")
-#     resp = google.get("userinfo")
-#     resp.raise_for_status()
-#     profile = resp.json()
-#     print("\n", "*"*20, profile,"\n")
-#     if crud.get_user_by_email(profile["email"]):
-#         user = crud.get_user_by_email(profile["email"])
-#         session["user_id"] = user.user_id
-#     else:
-#         hashed_password = bcrypt.hashpw(profile['id'].encode('utf8'), bcrypt.gensalt())
-#         username = profile["given_name"]
-#         crud.create_user(profile["email"], hashed_password, username)
-#         user = crud.get_user_by_email(profile["email"])
-#         session["user_id"] = user.user_id
-#     return redirect("/")
+@app.route("/authorize")
+def authorize():
+    google = oauth.create_client("google")
+    token = google.authorize_access_token()
+    print("\n", "*"*20, token,"\n")
+    resp = google.get("userinfo")
+    resp.raise_for_status()
+    profile = resp.json()
+    print("\n", "*"*20, profile,"\n")
+    if crud.get_user_by_email(profile["email"]):
+        user = crud.get_user_by_email(profile["email"])
+        session["user_id"] = user.user_id
+    else:
+        hashed_password = bcrypt.hashpw(profile['id'].encode('utf8'), bcrypt.gensalt())
+        username = profile["given_name"]
+        crud.create_user(profile["email"], hashed_password, username)
+        user = crud.get_user_by_email(profile["email"])
+        session["user_id"] = user.user_id
+    return redirect("/")
 
 url = "https://api.yelp.com/v3/businesses/search"
 headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
