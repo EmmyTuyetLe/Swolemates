@@ -18,7 +18,7 @@ app.jinja_env.undefined = StrictUndefined
 oauth = OAuth(app)
 google = oauth.register(
 name="google",
-client_id="1095412791174-qtvreoopct68oqaa0d5vr51a6h70753i.apps.googleusercontent.com",
+client_id=os.environ["CLIENT_ID"],
 client_secret=os.environ["CLIENT_SECRET"],
 access_token_url="https://accounts.google.com/o/oauth2/token",
 access_token_params=None,
@@ -38,18 +38,15 @@ def login():
 def authorize():
     google = oauth.create_client("google")
     token = google.authorize_access_token()
-    print("\n", "*"*20, token,"\n")
     resp = google.get("userinfo")
     resp.raise_for_status()
     profile = resp.json()
-    print("\n", "*"*20, profile,"\n")
     if crud.get_user_by_email(profile["email"]):
         user = crud.get_user_by_email(profile["email"])
         session["user_id"] = user.user_id
     else:
-        hashed_password = bcrypt.hashpw(profile['id'].encode('utf8'), bcrypt.gensalt())
-        username = profile["given_name"]
-        crud.create_user(profile["email"], hashed_password, username)
+        password = bcrypt.hashpw(profile['id'].encode('utf8'), bcrypt.gensalt())
+        crud.create_user(profile["email"], password)
         user = crud.get_user_by_email(profile["email"])
         session["user_id"] = user.user_id
     return redirect("/")

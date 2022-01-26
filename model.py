@@ -25,10 +25,10 @@ class User(db.Model):
     __tablename__ = "users"
 
     user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    fname = db.Column(db.String(25))
-    lname = db.Column(db.String(25))
-    email = db.Column(db.String(100))
-    password = db.Column(db.String(100))
+    fname = db.Column(db.String())
+    lname = db.Column(db.String())
+    email = db.Column(db.String())
+    password = db.Column(db.String(), nullable=False)
     gender = db.Column(db.String)
     pronouns = db.Column(db.String)
     about_me = db.Column(db.Text)
