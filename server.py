@@ -238,6 +238,20 @@ def send_message():
     print(message)
     crud.create_message(buddy=buddy, user=user, message=message) 
     return jsonify({ "success": True, "status": "Your message was sent!"})
+
+@app.route("/users/password/new", methods=['POST'])
+def send_password():
+    """If email exists in system, send forgotten password."""
+
+    email = request.form.get("email")
+    user = crud.get_user_by_email(email)
+
+    if user is None:
+        flash ("No account found with that email. Please register or try a different email.")
+        return redirect("/login")
+    else:
+        flash(f"Password sent to { user.email }. Please check your email and follow login instructions there")
+        return redirect("/login")
     
 
 if __name__ == "__main__":
