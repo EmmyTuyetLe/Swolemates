@@ -9,6 +9,7 @@ cryptography==36.0.1
 Faker==11.3.0
 Flask==2.0.1
 Flask-DebugToolbar==0.11.0
+Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.5.1
 greenlet==1.1.0
 httplib2==0.20.2

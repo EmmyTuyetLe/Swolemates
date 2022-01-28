@@ -15,7 +15,11 @@
   <p>Gender: {{buddy.gender}}</p>
   <p>Preferred pronouns: {{buddy.pronouns}}</p>
   <p>{{buddy.about_me}}</p>
+  {% if buddy.fav_location %}
   <p>Favorite gym/location: <a href='{{buddy.location["url"]}}'><u>{{buddy.location.name}}</a></u> </p>
+{% else %}
+  <p>Favorite gym/location: No locations saved yet.</p>
+{% endif %}
   <p>
     <form class="save_buddy_form" id="buddy_form_{{buddy.user_id}}" method="post" action="/save_buddy.json">
       <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Save</button> this swolemate as a workout buddy!

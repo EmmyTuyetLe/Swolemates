@@ -4,11 +4,11 @@ from model import  connect_to_db, db, Location, User, Save, Message
 ################ USER FUNCTIONS ##########################
 
 def create_user(email, password, fname=None, lname=None, gender=None, pronouns=None, 
-                about_me=None, fav_location=None):
+                about_me=None, fav_location=None, phone=None):
     """Create and return a new user."""
 
     user = User(fname=fname, lname=lname, gender=gender, pronouns=pronouns, 
-                about_me=about_me, email=email, password=password, fav_location=fav_location)
+                about_me=about_me, email=email, password=password, fav_location=fav_location, phone=phone)
 
     db.session.add(user)
     db.session.commit()

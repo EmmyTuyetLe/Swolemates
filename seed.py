@@ -34,8 +34,6 @@ for n in range(10):
     locations_db.append(location.location_id)
     location_names.append(location.name)
     
-
-
 # Create 20 female users;
 bio = ["In addition to lifting, I love rockclimbing and am looking for someone to get into climbing with! I prefer climbing in the evenings after 5 pm. Open to any gyms within a reasonable distance of Sunnyvale.",
        "Looking to meet someone to lift heavy weights with! Current prs - D: 445, S: 340 B: 275. I prefer to lift in the mornings from 5am to 8am.",
@@ -56,8 +54,9 @@ for n in range(30):
     password = "test"
     about_me = choice(bio)
     fav_location = choice(locations_db)
+    phone = fake.phone_number()
     user = crud.create_user(fname=fname, lname=lname, email=email, password=password, 
-                        fav_location=fav_location, pronouns=pronouns, gender=gender, about_me=about_me)
+                        fav_location=fav_location, pronouns=pronouns, gender=gender, about_me=about_me, phone=phone)
     users_db.append(user)
     
 # Create 20 nonbinary users;
@@ -72,9 +71,10 @@ for n in range(20):
     password = "test"
     about_me = choice(bio)
     fav_location = choice(locations_db)
+    phone = fake.phone_number()
 
     user = crud.create_user(fname=fname, lname=lname, email=email, password=password, 
-                        fav_location=fav_location, pronouns=pronouns, gender=gender, about_me=about_me)
+                        fav_location=fav_location, pronouns=pronouns, gender=gender, about_me=about_me, phone=phone)
     users_db.append(user)
 
 # Create 20 male users;
@@ -91,13 +91,11 @@ for n in range(20):
     password = "test"
     about_me = choice(bio)
     fav_location = choice(locations_db)
+    phone = fake.phone_number()
     user = crud.create_user(fname=fname, lname=lname, email=email, password=password, 
-                            fav_location=fav_location, pronouns=pronouns, gender=gender, about_me=about_me)
+                            fav_location=fav_location, pronouns=pronouns, gender=gender, about_me=about_me, phone=phone)
     users_db.append(user)
     
-
-
-     
 #create saves table  
 for n in range(100):
     buddy = crud.get_user_by_id(randint(1,30))
@@ -105,6 +103,10 @@ for n in range(100):
     if buddy != user:
         crud.create_buddy(buddy=buddy, user=user)
         crud.create_message(buddy=buddy, user=user, message="Hi, nice to meet you. Would love to workout sometime!")
+
+
+#make specific user for testing
+user = crud.create_user(fname="Test", lname="Person", email="test@test.com", password="test", pronouns="They/them", gender="Non-binary/non-conforming", about_me="I am a test user.")
         
 
 

@@ -1,20 +1,25 @@
 """Server for swolemates app."""
 
 from flask import Flask, render_template, request, flash, session, redirect, jsonify, url_for
+from flask_mail import Mail, Message
 from model import connect_to_db, db, Location, User, Save
 from authlib.integrations.flask_client import OAuth
 import os
 import bcrypt
 from yelp.client import Client
 MY_API_KEY = os.environ["API_KEY"]
+client = Client(MY_API_KEY)
 import requests
 import crud
+# import notifications
 from jinja2 import StrictUndefined
+os.system("source secrets.sh")
 
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
+#GOOGLE OAuth setup
 oauth = OAuth(app)
 google = oauth.register(
 name="google",
@@ -45,18 +50,30 @@ def authorize():
         user = crud.get_user_by_email(profile["email"])
         session["user_id"] = user.user_id
     else:
-        password = bcrypt.hashpw(profile['id'].encode('utf8'), bcrypt.gensalt())
+        password = bcrypt.hashpw(profile["id"].encode("utf8"), bcrypt.gensalt())
         crud.create_user(profile["email"], password)
         user = crud.get_user_by_email(profile["email"])
         session["user_id"] = user.user_id
     return redirect("/")
 
+
+#Yelp API setup
 url = "https://api.yelp.com/v3/businesses/search"
 headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
 params = {"term": "gyms", "location": "Sunnyvale", "limit": 50, "radius": 50}
 results = requests.get(url, params=params, headers=headers)
 results_dict = results.json()
 businesses = results_dict["businesses"]
+
+# Flask email setup
+
+app.config["MAIL_SERVER"]="smtp.gmail.com"
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USERNAME"] = os.environ["MAIL_USERNAME"]
+app.config["MAIL_PASSWORD"] = os.environ["MAIL_PASSWORD"]
+app.config["MAIL_USE_TLS"] = False
+app.config["MAIL_USE_SSL"] = True
+mail = Mail(app)
 
 @app.route("/")
 def homepage():
@@ -121,6 +138,7 @@ def all_users():
     """View all users."""
 
     users = crud.get_users()
+    print(users)
 
     return render_template("all_buddies.html", users=users)
 
@@ -194,13 +212,9 @@ def save_buddy():
 def unsave_buddy():
     """Unsave a buddy"""
     print("******",request.json)
-    # import pdb; pdb.set_trace()
     buddy_id = request.json.get("buddy_id")
-    print("******", buddy_id)
     user_id = request.json.get("user_id")
-    print(user_id)
     already_saved = crud.check_save(buddy_id=buddy_id, user_id=user_id)
-    print(already_saved)
     if already_saved:
         crud.unsave(buddy_id=buddy_id, user_id=user_id) 
         return jsonify({ "success": True, "status": "Your buddy has been removed"})
@@ -236,10 +250,11 @@ def send_message():
     user = crud.get_user_by_id(user_id)
     message = request.json.get("message_text")
     print(message)
-    crud.create_message(buddy=buddy, user=user, message=message) 
+    crud.create_message(buddy=buddy, user=user, message=message)
+    #insert code to notify buddy.phone or email of message from user 
     return jsonify({ "success": True, "status": "Your message was sent!"})
 
-@app.route("/users/password/new", methods=['POST'])
+@app.route("/users/password/new", methods=["POST"])
 def send_password():
     """If email exists in system, send forgotten password."""
 
@@ -252,6 +267,54 @@ def send_password():
     else:
         flash(f"Password sent to { user.email }. Please check your email and follow login instructions there")
         return redirect("/login")
+    
+@app.route("/email/<user_id>")
+def send_email(user_id):
+    user = crud.get_user_by_id(user_id)
+    msg = Message("Hello", sender = "swolemates.team1@gmail.com", recipients = [user.email])
+    msg.body = "Hello. You have a new notification."
+    mail.send(msg)
+    return "Sent email"
+
+@app.route("/edit_profile")
+def edit_profile():
+    user_id = session["user_id"]
+    user = crud.get_user_by_id(user_id)
+    return render_template("edit_profile.html", user=user)
+
+@app.route("/update_user", methods=["POST"])
+def save_profile():
+    #get users variables from form, if variable is not None, then update
+    user_id = session["user_id"]
+    user = crud.get_user_by_id(user_id)
+    email = request.form.get("email")
+    if email is not None:
+        user.email = email
+    password = request.form.get("password")
+    if password is not None:
+        user.password = password
+    fname = request.form.get("fname")
+    if fname is not None:
+        user.fname = fname
+    lname = request.form.get("lname")
+    if lname is not None:
+        user.lname = lname
+    gender = request.form.get("gender")
+    if gender is not None:
+        user.gender = gender
+    pronouns = request.form.get("pronouns")
+    if pronouns is not None:
+        user.pronouns = pronouns
+    about_me = request.form.get("about_me")
+    if about_me is not None:
+        user.about_me = about_me
+    phone = request.form.get("phone")
+    if phone is not None:
+        user.phone = phone
+    db.session.add(user)
+    db.session.commit()
+    flash("Your changes have been saved!")
+    return redirect("/my_profile")
     
 
 if __name__ == "__main__":

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Find your Swolemates{% endblock %}
+
+{% block body %}
+<p><u><b><a href="/">Return to homepage</a></u></b> if everything looks good and you don't want to make changes</p>
+<h3>Edit Personal Info</h3>
+<form action="/update_user" method="POST">
+    <p>Email: <input type="text" name="email" placeholder="{{user.email}}"></p>
+    <p>Password: <input type="password" name="password" placeholder="enter new password"></p>
+    <p>Confirm new password: <input type="password" name="password" placeholder="retype new password"></p>
+    <p> First name: <input type="text" name="fname" placeholder="{{user.fname}}"></p>
+    <p>Last name: <input type="text" name="lname" placeholder="{{user.lname}}"></p>
+    <p>Gender:</p>
+    <input type="radio" id="gender1" name="gender" value="Cisgender-female">
+    <label for="gender1">Cisgender-female</label><br>
+    <input type="radio" id="gender2" name="gender" value="Transgender-female">
+    <label for="gender2">Transgender-female</label><br>  
+    <input type="radio" id="gender3" name="gender" value="Cisgender-male">
+    <label for="gender3">Cisgender-male</label><br>
+    <input type="radio" id="gender4" name="gender" value="Transgender-male">
+    <label for="gender4">Transgender-male</label><br>
+    <input type="radio" id="gender5" name="gender" value="Non-binary/non-conforming">
+    <label for="gender5">Non-binary/non-conforming</label><br>
+    <p>Preferred pronouns: <input type="text" name="pronouns" placeholder="{{user.pronouns}}"></p>
+    <p>About me: <input id="textbox" type="text" name="about_me" placeholder="{{user.about_me}}"></p>
+    <p>Phone number (for sms notifications): <input type="text" name="phone" placeholder="Enter your phone number"></p>
+    <p><input value="Save changes" type="submit"></p>
+</form>
+              
+
+{% endblock %}
