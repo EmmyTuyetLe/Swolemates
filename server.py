@@ -248,7 +248,7 @@ def send_message():
     user_id = request.json.get("user_id")
     print(user_id)
     user = crud.get_user_by_id(user_id)
-    message = request.json.get("message_text")
+    message = request.json.get("message_content")
     print(message)
     crud.create_message(buddy=buddy, user=user, message=message)
     #insert code to notify buddy.phone or email of message from user 
