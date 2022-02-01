@@ -7,13 +7,14 @@ from authlib.integrations.flask_client import OAuth
 import os
 import bcrypt
 from yelp.client import Client
+from twilio.rest import Client
 MY_API_KEY = os.environ["API_KEY"]
 client = Client(MY_API_KEY)
 import requests
 import crud
+from twilio.twiml.messaging_response import MessagingResponse
 # import notifications
 from jinja2 import StrictUndefined
-os.system("source secrets.sh")
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -57,12 +58,14 @@ def authorize():
     return redirect("/")
 
 
-#Yelp API setup
+# #Yelp API setup
 url = "https://api.yelp.com/v3/businesses/search"
 headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
 params = {"term": "gyms", "location": "Sunnyvale", "limit": 50, "radius": 50}
 results = requests.get(url, params=params, headers=headers)
+print("*********",results)
 results_dict = results.json()
+print("************",results_dict)
 businesses = results_dict["businesses"]
 
 # Flask email setup
@@ -243,15 +246,23 @@ def view_sent_messages():
 def send_message():
     """Send a saved buddy a message"""
     buddy_id = request.json.get("buddy_id")
-    print("********",buddy_id)
     buddy = crud.get_user_by_id(buddy_id)
     user_id = request.json.get("user_id")
-    print(user_id)
     user = crud.get_user_by_id(user_id)
+    print(user)
     message = request.json.get("message_content")
-    print(message)
     crud.create_message(buddy=buddy, user=user, message=message)
-    #insert code to notify buddy.phone or email of message from user 
+    account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    send_num = os.environ['TWILIO_PHONE']
+    client = Client(account_sid, auth_token)
+    new_message = client.messages.create(
+                                from_= send_num,
+                                body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
+                                to=f'+1'+buddy.phone
+                            )
+
+    print(new_message.sid)
     return jsonify({ "success": True, "status": "Your message was sent!"})
 
 @app.route("/users/password/new", methods=["POST"])
@@ -260,13 +271,19 @@ def send_password():
 
     email = request.form.get("email")
     user = crud.get_user_by_email(email)
+    #Twilio setup
+    account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    verification = os.environ['TWILIO_VERIFY']
+    client = Client(account_sid, auth_token) #client setup for verify API
+    email_verification = client.verify.services(verification).verifications.create(to=user.email, channel='email') #send user the email with verification code
+    sms_verification = client.verify.services(verification).verifications.create(to=f'+1'+user.phone, channel='sms')
 
     if user is None:
         flash ("No account found with that email. Please register or try a different email.")
-        return redirect("/login")
     else:
         flash(f"Password sent to { user.email }. Please check your email and follow login instructions there")
-        return redirect("/login")
+    return redirect("/login")
     
 @app.route("/email/<user_id>")
 def send_email(user_id):
