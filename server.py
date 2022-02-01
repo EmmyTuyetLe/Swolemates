@@ -62,9 +62,7 @@ url = "https://api.yelp.com/v3/businesses/search"
 headers = {"Authorization": "Bearer mUOoEuwbg4In0FAGUm041a9Std20NoqFWNgw1i36aP8pnVuFYFn5RcKqTcamjM21niuNO9oYfjGexB2zOxGlgGBy8Vd1KfqOXKi6b2SvU2Coy5hzIprEWYW3OgreYXYx" }
 params = {"term": "gyms", "location": "Sunnyvale", "limit": 50, "radius": 50}
 results = requests.get(url, params=params, headers=headers)
-print("*********",results)
 results_dict = results.json()
-print("************",results_dict)
 businesses = results_dict["businesses"]
 
 @app.route("/")
@@ -255,10 +253,9 @@ def send_message():
     print(new_message.sid)
     return jsonify({ "success": True, "status": "Your message was sent!"})
 
-@app.route("/users/password/new", methods=["POST"])
+@app.route("/users/forgotpassword", methods=["POST"])
 def send_password():
-    """If email exists in system, send forgotten password."""
-
+    """If email exists in system, send verification code."""
     email = request.form.get("email")
     user = crud.get_user_by_email(email)
     #Twilio setup
@@ -273,9 +270,32 @@ def send_password():
         flash ("No account found with that email. Please register or try a different email.")
     else:
         flash(f"Verification sent to { user.email } and the phone number you have on file. Please check your email/text and follow login instructions there")
-    return redirect("/login")
+        return render_template("/verification.html", user=user)
     
-
+@app.route("/verify", methods=["POST"])
+def verify_user():
+    """Login existing users"""
+    email = request.form.get("email")
+    user_code = request.form.get("code")
+    user = crud.get_user_by_email(email)
+    account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    verification = os.environ['TWILIO_VERIFY']
+    client = Client(account_sid, auth_token)
+    verification_check = client.verify.services(verification).verification_checks.create(to=user.email, code=user_code) 
+    sms_verification_check = client.verify.services(verification).verification_checks.create(to=f'+1'+user.phone, code=user_code)
+    print(verification_check.status) 
+    print(sms_verification_check.status) 
+    if verification_check.status or sms_verification_check.status == "approved":
+            session["user_id"] = user.user_id
+            session["user_email"] = user.email
+            session["fname"] = user.fname
+            flash(f"Welcome back, {user.email}!")
+            return redirect("/my_profile")
+    else:
+        flash("Incorrect code. Please try again")
+        return redirect("/verify")
+    
 @app.route("/edit_profile")
 def edit_profile():
     user_id = session["user_id"]
