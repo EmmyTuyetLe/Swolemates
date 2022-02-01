@@ -1,7 +1,6 @@
 """Server for swolemates app."""
 
 from flask import Flask, render_template, request, flash, session, redirect, jsonify, url_for
-from flask_mail import Mail, Message
 from model import connect_to_db, db, Location, User, Save
 from authlib.integrations.flask_client import OAuth
 import os
@@ -67,16 +66,6 @@ print("*********",results)
 results_dict = results.json()
 print("************",results_dict)
 businesses = results_dict["businesses"]
-
-# Flask email setup
-
-app.config["MAIL_SERVER"]="smtp.gmail.com"
-app.config["MAIL_PORT"] = 465
-app.config["MAIL_USERNAME"] = os.environ["MAIL_USERNAME"]
-app.config["MAIL_PASSWORD"] = os.environ["MAIL_PASSWORD"]
-app.config["MAIL_USE_TLS"] = False
-app.config["MAIL_USE_SSL"] = True
-mail = Mail(app)
 
 @app.route("/")
 def homepage():
@@ -282,16 +271,9 @@ def send_password():
     if user is None:
         flash ("No account found with that email. Please register or try a different email.")
     else:
-        flash(f"Password sent to { user.email }. Please check your email and follow login instructions there")
+        flash(f"Verification sent to { user.email } and the phone number you have on file. Please check your email/text and follow login instructions there")
     return redirect("/login")
     
-@app.route("/email/<user_id>")
-def send_email(user_id):
-    user = crud.get_user_by_id(user_id)
-    msg = Message("Hello", sender = "swolemates.team1@gmail.com", recipients = [user.email])
-    msg.body = "Hello. You have a new notification."
-    mail.send(msg)
-    return "Sent email"
 
 @app.route("/edit_profile")
 def edit_profile():
