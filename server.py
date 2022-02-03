@@ -290,7 +290,7 @@ def verify_user():
             session["user_id"] = user.user_id
             session["user_email"] = user.email
             session["fname"] = user.fname
-            flash(f"Welcome back, {user.email}!")
+            flash(f"Welcome back, {user.email}! You can change your password by updating it below.")
             return redirect("/my_profile")
     else:
         flash("Incorrect code. Please try again")

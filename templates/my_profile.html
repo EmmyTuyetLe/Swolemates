@@ -23,7 +23,7 @@
             {% else %}
                 <p>Favorite gym/location: No locations saved yet.</p>
             {% endif %}
-            <p><u><b><a href="/edit_profile">Update</a></u></b> your personal information.</p>
+            <p><u><b><a href="/edit_profile" id="button">Update</a></u></b> your personal information.</p>
             <hr class="dashed">
 
 <h2>{{user.fname}}'s swolemates</h3>
@@ -41,5 +41,12 @@
     </p>
     <p style="display: inline;"> <input value="Go!" id="search-button" type="submit"></p>
 </form>
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"></script>
+
+<div id="button"></div>
+<script type="text/jsx" src="/static/javascript/react.jsx"></script>
 
 {% endblock %}
