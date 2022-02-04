@@ -4,13 +4,13 @@
 
 
 {% block body %}
-
+<h2>My sent messages</h2>
 <br>
 {% if messages %}
     {% for message in messages %}
         <hr class="dashed">
-        {{message}}
         <p>To: {{ message.buddy.fname }} {{ message.buddy.lname[0] }}</p>
+        <p>Sent on: {{ message.message_date }}</p>
         <p>{{ message.message}}</p>
     {% endfor %}
 {% else %}

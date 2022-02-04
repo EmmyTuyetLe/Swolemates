@@ -1,15 +1,24 @@
 {% extends 'base.html' %}
 
-{% block title %}Saved swolemates{% endblock %}
+{% block title %}View received messages{% endblock %}
 
 
 {% block body %}
-
+<h2>My messages</h2>
 <br>
 {% if messages %}
     {% for message in messages %}
         <hr class="dashed">
-        <h2>{{ message.message}}</h2>
+        <p>From: {{ message.user.fname }} {{ message.user.lname[0] }}</p>
+        <p>Received on: {{ message.message_date }}</p>
+        <p>{{ message.message}}</p>
+        <p>Reply to {{ message.user.fname }}</p>
+        <form class="reply_message_form" id="replymessage_form_{{message.user.user_id}}" method="post" action="/reply_message.json">
+            <input type="hidden" id="buddy_id_{{message.user.user_id}}" value={{message.user.user_id}}>
+            <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
+            <input type="text" id="message_text" name="message_text">
+            <button id="reply_message" type="submit" class="btn btn-primary mt-2">Send</button>
+        </form>
     {% endfor %}
 {% else %}
     <p>No messages received yet. Try saying hello to your <a href="/buddies"><u>saved</u> swolemates or </a><a href="/users"><u>go</u></a> find somenew ones!</p>

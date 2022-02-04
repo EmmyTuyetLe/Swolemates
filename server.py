@@ -12,7 +12,6 @@ client = Client(MY_API_KEY)
 import requests
 import crud
 from twilio.twiml.messaging_response import MessagingResponse
-# import notifications
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
@@ -244,14 +243,23 @@ def send_message():
     auth_token = os.environ['TWILIO_AUTH_TOKEN']
     send_num = os.environ['TWILIO_PHONE']
     client = Client(account_sid, auth_token)
-    new_message = client.messages.create(
-                                from_= send_num,
-                                body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
-                                to=f'+1'+buddy.phone
-                            )
-
-    print(new_message.sid)
+    # new_message = client.messages.create(
+    #                             from_= send_num,
+    #                             body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
+    #                             to=f'+1'+buddy.phone
+    #                         )
     return jsonify({ "success": True, "status": "Your message was sent!"})
+    
+@app.route("/reply_message.json", methods=["POST"])
+def reply_message():
+    """Send a saved buddy a message"""
+    buddy_id = request.json.get("buddy_id")
+    buddy = crud.get_user_by_id(buddy_id)
+    user_id = request.json.get("user_id")
+    user = crud.get_user_by_id(user_id)
+    message = request.json.get("message_content")
+    crud.create_message(buddy=buddy, user=user, message=message)
+    return jsonify({ "success": True, "status": f"Your reply to {buddy.fname} {buddy.lname[0]} was sent!"})
 
 @app.route("/users/forgotpassword", methods=["POST"])
 def send_password():
