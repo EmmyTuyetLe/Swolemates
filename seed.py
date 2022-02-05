@@ -106,7 +106,7 @@ for n in range(100):
 
 
 #make specific user for testing
-user = crud.create_user(fname="Test", lname="Person", email="test@test.com", password="test", pronouns="They/them", gender="Non-binary/non-conforming", about_me="I am a test user.")
+user1 = crud.create_user(fname="Test", lname="Person", email="test@test.com", password="test", pronouns="They/them", gender="Non-binary/non-conforming", about_me="I am a test user.")
         
 
 

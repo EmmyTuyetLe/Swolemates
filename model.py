@@ -67,6 +67,7 @@ class Message(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id")) #field for current user writing message
     message = db.Column(db.Text)
     message_date = db.Column(db.DateTime, default=datetime.now())
+    archived = db.Column(db.Boolean, default=False)
     
     buddy = db.relationship("User", backref="receiver", foreign_keys=[buddy_id])
     user = db.relationship("User", backref="writer", foreign_keys=[user_id]) 

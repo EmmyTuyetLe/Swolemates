@@ -5,9 +5,11 @@
 
 {% block body %}
 <h2>My messages</h2>
+<a href="/delete" onclick="return confirm('Are you sure to delete the messages in your inbox?')"><u><b>Clear inbox</u></b></a>
 <br>
 {% if messages %}
     {% for message in messages %}
+    {% if not message.archived %}
         <hr class="dashed">
         <p>From: {{ message.user.fname }} {{ message.user.lname[0] }}</p>
         <p>Received on: {{ message.message_date }}</p>
@@ -19,6 +21,7 @@
             <input type="text" id="message_text" name="message_text">
             <button id="reply_message" type="submit" class="btn btn-primary mt-2">Send</button>
         </form>
+    {% endif %}
     {% endfor %}
 {% else %}
     <p>No messages received yet. Try saying hello to your <a href="/buddies"><u>saved</u> swolemates or </a><a href="/users"><u>go</u></a> find somenew ones!</p>

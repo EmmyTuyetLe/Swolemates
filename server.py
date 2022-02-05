@@ -15,7 +15,7 @@ from twilio.twiml.messaging_response import MessagingResponse
 from jinja2 import StrictUndefined
 
 app = Flask(__name__)
-app.secret_key = "dev"
+app.secret_key = "dev ***************************"
 app.jinja_env.undefined = StrictUndefined
 
 #GOOGLE OAuth setup
@@ -43,17 +43,20 @@ def authorize():
     google = oauth.create_client("google")
     token = google.authorize_access_token()
     resp = google.get("userinfo")
+    print("************",resp)
     resp.raise_for_status()
     profile = resp.json()
+    print("***********", profile)
     if crud.get_user_by_email(profile["email"]):
         user = crud.get_user_by_email(profile["email"])
+        print("****************** this is", user)
         session["user_id"] = user.user_id
     else:
         password = bcrypt.hashpw(profile["id"].encode("utf8"), bcrypt.gensalt())
         crud.create_user(profile["email"], password)
         user = crud.get_user_by_email(profile["email"])
         session["user_id"] = user.user_id
-    return redirect("/")
+    return redirect("/my_profile")
 
 
 # #Yelp API setup
@@ -113,15 +116,16 @@ def logout():
 @app.route("/my_profile")
 def to_user_profile():
     """For user to view their profile"""
-    user = crud.get_user_by_email(session.get("user_email"))
-    location =  crud.get_location_by_id(user.fav_location)
+    user_id = session["user_id"]
     if "user_id" in session:
+        user = crud.get_user_by_id(user_id)
+        print("*********************",session.get(user))
+        location =  crud.get_location_by_id(user.fav_location)
         return render_template("my_profile.html", user=user, location=location)
     else:
         flash("You must be logged in to see your profile.")
         return redirect("/")
-
-
+       
 @app.route("/users")
 def all_users():
     """View all users."""
@@ -220,8 +224,12 @@ def view_buddies():
 @app.route("/messages")
 def view_messages():
     """View user"s messages they received"""
-    messages= crud.view_messages(session["user_id"])
-    return render_template("messages.html", messages=messages)
+    if "user_id" in session:
+        messages= crud.view_messages(session["user_id"])
+        return render_template("messages.html", messages=messages)
+    else:
+        flash("You must be logged in to read your messages.")
+        return redirect("/")
 
 @app.route("/sent-messages")
 def view_sent_messages():
@@ -343,6 +351,12 @@ def save_profile():
     db.session.commit()
     flash("Your changes have been saved!")
     return redirect("/my_profile")
+
+@app.route("/delete")
+def delete_messages():
+    user_id = session["user_id"]
+    crud.delete_messages(user_id)
+    return redirect("/messages")
     
 
 if __name__ == "__main__":

@@ -121,8 +121,17 @@ def view_messages(user_id):
 def view_sent_messages(user_id):
     """List of all the messages left by user for others."""
     return Message.query.filter_by(user_id=user_id).all()
-    
 
+def delete_messages(user_id):
+    """List of all the messages left by others for each user."""
+    all_messages = Message.query.filter_by(buddy_id=user_id).all()
+    db.session.delete(all_messages)
+
+def delete_sent_messages(user_id):
+    """List of all the messages left by others for each user."""
+    all_messages = Message.query.filter_by(user_id=user_id).all()
+    db.session.delete(all_messages)
+    
 if __name__ == "__main__":
     from server import app
 
