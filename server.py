@@ -111,13 +111,14 @@ def logout():
         flash("Logged out. Thanks for visiting.")
         return render_template("logout.html")
     else: 
+        flash("You're already logged out.")
         return redirect("/")
 
 @app.route("/my_profile")
 def to_user_profile():
     """For user to view their profile"""
-    user_id = session["user_id"]
     if "user_id" in session:
+        user_id = session["user_id"]
         user = crud.get_user_by_id(user_id)
         print("*********************",session.get(user))
         location =  crud.get_location_by_id(user.fav_location)
