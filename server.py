@@ -13,6 +13,7 @@ import requests
 import crud
 from twilio.twiml.messaging_response import MessagingResponse
 from jinja2 import StrictUndefined
+import werkzeug
 
 app = Flask(__name__)
 app.secret_key = "dev ***************************"
@@ -89,15 +90,15 @@ def login_user():
     user = crud.get_user_by_email(email)
     print(user)
     if user:
-        if user.email == email and user.password == password:
-            print(user.email, email)
-            session["user_id"] = user.user_id
-            session["user_email"] = user.email
-            session["fname"] = user.fname
-            flash(f"Welcome back, {user.email}!")
-            return redirect("/my_profile")
-        else:
-            flash("Incorrect password. Please try again")
+        if werkzeug.security.check_password_hash(user.password, password):
+            if user.email == email:
+                print(user.email, email)
+                session["user_id"] = user.user_id
+                session["user_email"] = user.email
+                flash(f"Welcome back, {user.email}!")
+                return redirect("/my_profile")
+            else:
+                flash("Incorrect password. Please try again")
     else:
         flash("Email not registered. Please register first or check that you entered your email correctly.")
     return redirect("/login")
@@ -150,7 +151,8 @@ def create_user():
     if user:
         flash("That email is already associated with an account.")
     else:
-        crud.create_user(email, password, fname, lname, gender, phone)
+        hashed_password = werkzeug.security.generate_password_hash(password, method='pbkdf2:sha256', salt_length=10)
+        crud.create_user(email, hashed_password, fname, lname, gender, phone)
         flash("Account created! Please log in.")
     
     return redirect("/login")
