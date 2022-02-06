@@ -97,12 +97,12 @@ for n in range(20):
     users_db.append(user)
     
 #create saves table  
-for n in range(100):
+for n in range(50):
     buddy = crud.get_user_by_id(randint(1,30))
     user = crud.get_user_by_id(randint(1,30))
     if buddy != user:
         crud.create_buddy(buddy=buddy, user=user)
-        crud.create_message(buddy=buddy, user=user, message="Hi, nice to meet you. Would love to workout sometime!")
+        # crud.create_message(buddy=buddy, user=user, message="Hi, nice to meet you. Would love to workout sometime!")
 
 
 #make specific user for testing

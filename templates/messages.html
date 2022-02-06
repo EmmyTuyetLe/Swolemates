@@ -5,7 +5,7 @@
 
 {% block body %}
 <h2>My messages</h2>
-<a href="/delete" onclick="return confirm('Are you sure to delete the messages in your inbox?')"><u><b>Clear inbox</u></b></a>
+<a href="/delete" onclick="return confirm('Are you sure to archive the messages in your inbox?')"><u><b>Archive messages</u></b></a>
 <br>
 {% if messages %}
     {% for message in messages %}
@@ -18,7 +18,7 @@
         <form class="reply_message_form" id="replymessage_form_{{message.user.user_id}}" method="post" action="/reply_message.json">
             <input type="hidden" id="buddy_id_{{message.user.user_id}}" value={{message.user.user_id}}>
             <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
-            <input type="text" id="message_text" name="message_text">
+            <input type="text" id="message_text_{{message.user.user_id}}" name="message_text">
             <button id="reply_message" type="submit" class="btn btn-primary mt-2">Send</button>
         </form>
     {% endif %}

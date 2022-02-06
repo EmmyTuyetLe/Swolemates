@@ -90,15 +90,17 @@ def login_user():
     user = crud.get_user_by_email(email)
     print(user)
     if user:
+        print("*"*20, "\n", f"user.email =={user.email}, email =={email}")
         if werkzeug.security.check_password_hash(user.password, password):
             if user.email == email:
+                print("*"*20, "\n we are in 'if user.email == email'")
                 print(user.email, email)
                 session["user_id"] = user.user_id
                 session["user_email"] = user.email
                 flash(f"Welcome back, {user.email}!")
                 return redirect("/my_profile")
-            else:
-                flash("Incorrect password. Please try again")
+        else:
+            flash("Incorrect password. Please try again")
     else:
         flash("Email not registered. Please register first or check that you entered your email correctly.")
     return redirect("/login")
@@ -249,11 +251,12 @@ def send_message():
     user = crud.get_user_by_id(user_id)
     print(user)
     message = request.json.get("message_content")
+    print("*"*20, f"\nmessage ={message}")
     crud.create_message(buddy=buddy, user=user, message=message)
-    account_sid = os.environ['TWILIO_ACCOUNT_SID']
-    auth_token = os.environ['TWILIO_AUTH_TOKEN']
-    send_num = os.environ['TWILIO_PHONE']
-    client = Client(account_sid, auth_token)
+    # account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    # auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    # send_num = os.environ['TWILIO_PHONE']
+    # client = Client(account_sid, auth_token)
     # new_message = client.messages.create(
     #                             from_= send_num,
     #                             body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',

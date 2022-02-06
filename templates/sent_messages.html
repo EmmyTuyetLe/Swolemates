@@ -5,6 +5,8 @@
 
 {% block body %}
 <h2>My sent messages</h2>
+<a href="/delete" onclick="return confirm('Are you sure to archive the messages in your inbox?')"><u><b>Archive messages</u></b></a>
+<br>
 <br>
 {% if messages %}
     {% for message in messages %}

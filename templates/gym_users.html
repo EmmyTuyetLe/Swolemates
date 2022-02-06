@@ -28,7 +28,7 @@
     <form class="send_message_form" id="sendmessage_form_{{buddy.user_id}}" method="post" action="/send_message.json">
       <input type="hidden" id="buddy_id_{{buddy.user_id}}" value={{buddy.user_id}}>
       <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
-      <input type="text" id="message_text" name="message_text">
+      <input type="text" id="message_text_{{buddy.user_id}}" name="message_text">
       <button id="send_message" type="submit" class="btn btn-primary mt-2">Send</button>
     </form>
 </p>
