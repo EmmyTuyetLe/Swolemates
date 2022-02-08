@@ -13,6 +13,7 @@
   <style>    
       .navbar{z-index: 7;}
   </style>
+  {% block head %}{% endblock %}
 </head>
 <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FCBAD3;">
     <div class="container-fluid">
@@ -43,9 +44,6 @@
             <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
               <li><a class="dropdown-item" href="/messages">My Messages</a></li>
               <li><a class="dropdown-item" href="/sent-messages">Sent messages</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/buddies">Saved swolemates</a></li>
-              <li><a class="dropdown-item" href="/users">Find more swolemates</a></li>
             </ul>
           </li>
         </ul>
@@ -58,23 +56,24 @@
     </div>
   </nav>
 
-
   <body>
-    {% for msg in get_flashed_messages() %}
-    <p class="flash-msg">
-      {{ msg }}
-    </p>
-    {% endfor %}
+    <div class="row align-items-center">
+      <div class="centered">
+        {% for msg in get_flashed_messages() %}
+        <p class="flash-msg">
+          {{ msg }}
+        </p>
+        {% endfor %}
+      </div>
+    </div>
+    
     {% block body %}{% endblock %}
-    <!-- <div>
-    <a href="/"><img class="main-image" style="height: 500px; width: auto; padding: 20px" src="../static/img/logo.png"
-      alt="swolemates"></a>
-      </div> -->
+
+
   <script src="/static/javascript/save_buddies.js"></script>
   <script src="/static/javascript/send_message.js"></script>
   <script src="/static/javascript/reply_message.js"></script>
   <script src="/static/javascript/unsave_buddies.js"></script>
   <script src="/static/javascript/fav_location.js"></script>
   </body>
-  
   </html>

@@ -4,44 +4,53 @@
 
 {% block body %}
 
-<div class="container">
-    <div class="row">
-      <div class="col-7">
-        <div id="welcome">
-            <h2>Welcome {{user.fname}}</h2>
-            <hr class="dashed">
-            <h3>{{user.fname}}'s Swolemates profile</h3>
-            <p>Email: {{user.email}}</p>
-            <p>First name: {{user.fname}}</p>
-            <p>Last name: {{user.lname}}</p>
-            <p>Gender: {{user.gender}}</p>
-            <p>Preferred pronouns: {{user.pronouns}}</p>
-            <p>About me: {{user.about_me}}</p>
-            <p>Phone number (for sms notifications): {{user.phone}}</p>
-            {% if user.fav_location %}
-                <p>Favorite gym/location: <a href='{{location["url"]}}'><u>{{location.name}}</a></u> </p>
-            {% else %}
-                <p>Favorite gym/location: No locations saved yet.</p>
-            {% endif %}
-            <p><u><b><a href="/edit_profile" id="button">Update</a></u></b> your personal information.</p>
-            <hr class="dashed">
+<div class="row align-items-center">
+    <div class="centered">
+        <h2>Welcome {{user.fname}}</h2>
+        <hr class="dashed">
+        <h5>{{user.fname}}'s Swolemates profile</h5>
+        <p>Email: {{user.email}}</p>
+        <p>First name: {{user.fname}}</p>
+        <p>Last name: {{user.lname}}</p>
+        <p>Gender: {{user.gender}}</p>
+        <p>Preferred pronouns: {{user.pronouns}}</p>
+        <p>About me: {{user.about_me}}</p>
+        <p>Phone number (for sms notifications): {{user.phone}}</p>
+        {% if user.fav_location %}
+            <p>Favorite gym/location: <a href='{{location["url"]}}'><u>{{location.name}}</a></u> </p>
+        {% else %}
+            <p>Favorite gym/location: No locations saved yet.</p>
+        {% endif %}
+        <p><u><b><a href="/edit_profile" id="button">Update</a></u></b> your personal information.</p>
+        <hr class="dashed">
 
-<h2>{{user.fname}}'s swolemates</h3>
-<h3><u><b><a href="/messages">View your messages</a></u></b></h3>
-<h3><u><b><a href="/sent-messages">View sent messages</a></u></b></h3>
-<h3><u><b><a href="/buddies">Saved Swolemates</a></u></b></h3>
-<h3><u><b><a href="/users">Find more Swolemate!</a></u></b></h3>
+    <h4>{{user.fname}}'s swolemates</h4>
+    <h6><u><b><a href="/messages">View your messages</a></u></b></h6>
+    <h6><u><b><a href="/sent-messages">View sent messages</a></u></b></h6>
+    <h6><u><b><a href="/buddies">Saved Swolemates</a></u></b></h6>
+    <h6><u><b><a href="/users">Find more Swolemate!</a></u></b></h6>
 
-<hr class="dashed">
-    
-<h3>Search for a workout destination!</h3>
-<form action="/search" id="search-form">
-    <p style="display: inline;">
-        Find: <input id="search-text" type="text" name="term">
-        Near: <input id="location-text" type="text" name="location">
-    </p>
-    <p style="display: inline;"> <input value="Go!" id="search-button" type="submit"></p>
-</form>
+    <hr class="dashed">
+        
+    <h6>Search for a workout destination!</h6>
+    <form action="/search" id="search-form">
+        <p style="display: inline;">
+            <input id="search-text" type="text" name="term" placeholder='Find: "gym" "HIIT class"'>
+            <input id="location-text" type="text" name="location" placeholder="Near: your city/zipcode">
+        </p>
+        <p style="display: inline;"> <input value="Go!" id="search-button" type="submit"></p>
+    </form>
+    </div>
+</div>
+
+
+<div class="row align-items-center">
+    <div class="bottom-container">
+      <a class="footer-link" href="https://www.linkedin.com/in/emmytuyetle/">LinkedIn</a>
+      <a class="footer-link" href="https://github.com/EmmyTuyetLe">Github</a>
+      <p class="copyright">© 2022 made with ❤️ by Emmy Le</p>
+    </div>
+</div>
 
 <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>

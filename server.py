@@ -228,8 +228,12 @@ def view_messages():
 @app.route("/sent-messages")
 def view_sent_messages():
     """View user"s messages they sent"""
-    messages= crud.view_sent_messages(session["user_id"])
-    return render_template("sent_messages.html", messages=messages)
+    if "user_id" in session:
+        messages= crud.view_sent_messages(session["user_id"])
+        return render_template("sent_messages.html", messages=messages)
+    else:
+        flash("You must be logged in to read your sent messages.")
+        return redirect("/")
 
 @app.route("/send_message.json", methods=["POST"])
 def send_message():
