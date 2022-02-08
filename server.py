@@ -44,13 +44,10 @@ def authorize():
     google = oauth.create_client("google")
     token = google.authorize_access_token()
     resp = google.get("userinfo")
-    print("************",resp)
     resp.raise_for_status()
     profile = resp.json()
-    print("***********", profile)
     if crud.get_user_by_email(profile["email"]):
         user = crud.get_user_by_email(profile["email"])
-        print("****************** this is", user)
         session["user_id"] = user.user_id
     else:
         password = bcrypt.hashpw(profile["id"].encode("utf8"), bcrypt.gensalt())
@@ -88,13 +85,9 @@ def login_user():
     email = request.form.get("email")
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
-    print(user)
     if user:
-        print("*"*20, "\n", f"user.email =={user.email}, email =={email}")
         if werkzeug.security.check_password_hash(user.password, password):
             if user.email == email:
-                print("*"*20, "\n we are in 'if user.email == email'")
-                print(user.email, email)
                 session["user_id"] = user.user_id
                 session["user_email"] = user.email
                 flash(f"Welcome back, {user.email}!")
@@ -123,7 +116,6 @@ def to_user_profile():
     if "user_id" in session:
         user_id = session["user_id"]
         user = crud.get_user_by_id(user_id)
-        print("*********************",session.get(user))
         location =  crud.get_location_by_id(user.fav_location)
         return render_template("my_profile.html", user=user, location=location)
     else:
@@ -135,7 +127,6 @@ def all_users():
     """View all users."""
 
     users = crud.get_users()
-    print(users)
 
     return render_template("all_buddies.html", users=users)
 
@@ -190,7 +181,6 @@ def fav_location():
 def members(location_id): 
     """See the users who also favorited that gym"""
     gym_users = crud.get_users_by_gym(location_id)
-    print("this is *********", gym_users)
     return render_template("gym_users.html", gym_users=gym_users)
 
 @app.route("/save_buddy.json", methods=["POST"])
@@ -210,7 +200,6 @@ def save_buddy():
 @app.route("/unsave_buddy.json", methods=["POST"])
 def unsave_buddy():
     """Unsave a buddy"""
-    print("******",request.json)
     buddy_id = request.json.get("buddy_id")
     user_id = request.json.get("user_id")
     already_saved = crud.check_save(buddy_id=buddy_id, user_id=user_id)
@@ -249,9 +238,7 @@ def send_message():
     buddy = crud.get_user_by_id(buddy_id)
     user_id = request.json.get("user_id")
     user = crud.get_user_by_id(user_id)
-    print(user)
     message = request.json.get("message_content")
-    print("*"*20, f"\nmessage ={message}")
     crud.create_message(buddy=buddy, user=user, message=message)
     # account_sid = os.environ['TWILIO_ACCOUNT_SID']
     # auth_token = os.environ['TWILIO_AUTH_TOKEN']

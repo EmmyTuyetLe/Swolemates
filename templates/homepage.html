@@ -3,25 +3,18 @@
 {% block title %}Find your Swolemates{% endblock %}
 
 {% block body %}
-
-<div class="container">
-    <div class="row">
-      <div class="col-7">
-        <div id="welcome">
-          {% if "user_id" not in session %}
-          <h2>Welcome! Ready to meet swolemates and get strong?</h2>
-          <p><u><a href="/login">Log In</a></u> to save your favorite swolemates and locations</p>  
-          {% else %}
-          <h2>Hi swolemate! We're so happy you're here!</h2>
-          {% endif %}
-
-<h3>Search for a workout destination!</h3>
-<form action="/search" id="search-form">
-  <p style="display: inline;">
-      Find: <input id="search-text" type="text" name="term" placeholder='i.e. "gym" "rockclimbing"'>
-      Near: <input id="location-text" type="text" name="location" placeholder="i.e. your city/zipcode">
-  </p>
-  <p style="display: inline;"> <input value="Go!" id="search-button" type="submit"></p>
-</form>
+<!--Video Page-->
+  <div class="homepage-video-container">
+    <video id = "homevid" playsinline autoplay muted loop poster="homevidstill.png">
+    <source src="../static/img/women-legworkout.mp4" type="video/webm">
+  </div>
+  <div class="homepage-content">
+    {% if "user_id" not in session %}
+    <h4>Welcome! Ready to meet swolemates and get strong?</h4>
+    <p><u><a href="/login">Log In</a></u> to save your favorite swolemates and locations</p>  
+    {% else %}
+    <h4>Hi swolemate! We're so happy you're here!</h4>
+    {% endif %}
+  </div>
 
 {% endblock %}

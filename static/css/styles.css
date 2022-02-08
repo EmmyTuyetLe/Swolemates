@@ -1,7 +1,3 @@
-body {
-    background-color: #f2f7fb
-}
-
 .login-block {
     margin: 30px auto;
     min-height: 93.6vh
@@ -10,25 +6,6 @@ body {
 .login-block .auth-box {
     margin: 20px auto 0;
     max-width: 450px !important
-}
-
-.card {
-    border-radius: 5px;
-    -webkit-box-shadow: 0 0 5px 0 rgba(43, 43, 43, .1), 0 11px 6px -7px rgba(43, 43, 43, .1);
-    box-shadow: 0 0 5px 0 rgba(43, 43, 43, .1), 0 11px 6px -7px rgba(43, 43, 43, .1);
-    border: none;
-    margin-bottom: 30px;
-    -webkit-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
-    background-color: #fff
-}
-
-.card .card-block {
-    padding: 1.25rem
-}
-
-.f-80 {
-    font-size: 80px
 }
 
 .form-group {
@@ -87,9 +64,6 @@ body {
     font-size: 21px
 }
 
-#infoMessage p {
-    color: red !important
-}
 
 .btn-google {
     color: #545454;
@@ -97,25 +71,12 @@ body {
     box-shadow: 0 1px 2px 1px #ddd
 }
 
-.or-container {
-    align-items: center;
-    color: #ccc;
-    display: flex;
-    margin: 25px 0
-}
 
 .line-separator {
     background-color: #ccc;
     flex-grow: 5;
     height: 1px
 }
-
-.or-label {
-    flex-grow: 1;
-    margin: 0 15px;
-    text-align: center
-}
-
 
 
 /* Dashed border */
@@ -165,18 +126,6 @@ border-radius: 5px;
     
 }
 
-#container-text{
-    margin-left: 10%;
-    padding-bottom: 10px;
-}
-
-
-#textbox{
-    height:100px;
-    width: 200px;
-}
-
-
 .navtext {
     color: white;
     margin-right: 10px;
@@ -202,3 +151,23 @@ a {
     text-decoration: none;
 }
 
+.homepage-video-container video {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    object-fit: cover;
+    z-index: 0;
+}
+    
+.homepage-content {
+    position:absolute;
+    z-index:9999999999;
+}
+
+body{
+    background-position: center;
+    background-size: cover;
+    z-index: -10;
+    background-color: #f2f7fb;
+    overflow-y: hidden;
+}

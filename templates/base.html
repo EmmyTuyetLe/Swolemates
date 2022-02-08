@@ -14,9 +14,9 @@
       .navbar{z-index: 7;}
   </style>
 </head>
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #9AD0EC;">
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #FCBAD3;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/main">Swolemates
+        <a class="navbar-brand" href="/">Swolemates
             <img src="../static/img/dumbbells.png" alt="homepage link" width="30" height="30">
         </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,12 +27,15 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/my_profile">My Profile</a>
           </li>
+          {% if "user_id" not in session %}
           <li class="nav-item">
             <a class="nav-link" href="/login">Login</a>
           </li>
+          {% else %}
           <li class="nav-item">
             <a class="nav-link" href="/logout">Logout</a>
           </li>
+          {% endif %}
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Messages
@@ -47,8 +50,8 @@
           </li>
         </ul>
         <form class="d-flex" action="/search" id="search-form">
-          Find: <input id="search-text" class="form-control me-2" name="term"  type="search" placeholder='i.e. "gym" "rockclimbing"' aria-label="Search">
-          Near: <input id="location-text" class="form-control me-2" name="location" type="search" placeholder="i.e. your city/zipcode">
+          <input id="search-text" class="form-control me-2" name="term"  type="search" placeholder='Find: "gym" "HIIT class"' aria-label="Search">
+          <input id="location-text" class="form-control me-2" name="location" type="search" placeholder="Near: your city/zipcode">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
@@ -63,10 +66,10 @@
     </p>
     {% endfor %}
     {% block body %}{% endblock %}
-    <div>
+    <!-- <div>
     <a href="/"><img class="main-image" style="height: 500px; width: auto; padding: 20px" src="../static/img/logo.png"
       alt="swolemates"></a>
-      </div>
+      </div> -->
   <script src="/static/javascript/save_buddies.js"></script>
   <script src="/static/javascript/send_message.js"></script>
   <script src="/static/javascript/reply_message.js"></script>
