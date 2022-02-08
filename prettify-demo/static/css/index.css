@@ -1,0 +1,16 @@
+.main-card a {
+  text-decoration: none;
+}
+
+.card {
+  cursor: pointer;
+}
+
+.card:hover {
+  border-color: #007bff;
+  box-shadow: 0 0 2px #007bff
+}
+
+.card:hover > .card-img-overlay {
+  opacity: 0;
+}

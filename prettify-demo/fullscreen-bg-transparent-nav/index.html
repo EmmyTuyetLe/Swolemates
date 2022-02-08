@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Fullscreen BG w/ Transparent Nav</title>
+
+    <!-- WARNING
+      If you are writing this in Jinja, you'll want to
+      link to the absolute path, "/static/" and NOT the
+      relative path, "static/"
+
+      We use the relative path so you can open this page in a browser without
+      having to run a server.
+    -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link
+      href="../static/css/fullscreen-bg-transparent-nav.css"
+      rel="stylesheet"
+    >
+  </head>
+  <body>
+    <div class="homepage">
+      <nav class="navbar navbar-expand-md nav-transparent w-100">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Transparent Nav</a>
+          <div id="navbar" class="navbar-collapse collapse navbar-expand-lg">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Another One</a>
+              </li>
+            </ul>
+          </div>
+          <p class="my-auto">
+            Show off your background image with a transparent navbar.
+          </p>
+        </div>
+      </nav>
+
+      <section
+        class="demo-1 container-fluid d-flex justify-content-center align-items-center"
+      >
+        <div class="row">
+          <div class="column">
+            <p class="display-4 mx-5 text-light">
+              A basic fullscreen background with no special effects. The image
+              was blurred using image-editing software like Photoshop.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="demo-2 container-fluid d-flex justify-content-center align-items-center"
+      >
+        <div class="demo-2-bg"></div>
+        <div class="row">
+          <div class="column">
+            <p class="display-4 mx-5">
+              A fullscreen background where effects were added onto the original
+              photo with CSS.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="demo-3 container-fluid d-flex justify-content-center align-items-center"
+      >
+        <div class="row">
+          <div class="column">
+            <p class="display-4 mx-5">
+              A gradient background. The gradient is generated with CSS; no
+              images are used to create this background!
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

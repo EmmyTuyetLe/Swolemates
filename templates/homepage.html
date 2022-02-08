@@ -8,12 +8,13 @@
     <video id = "homevid" playsinline autoplay muted loop poster="homevidstill.png">
     <source src="../static/img/women-legworkout.mp4" type="video/webm">
   </div>
-  <div class="homepage-content">
+  <div class="homepage-content" id="center">
     {% if "user_id" not in session %}
-    <h4>Welcome! Ready to meet swolemates and get strong?</h4>
-    <p><u><a href="/login">Log In</a></u> to save your favorite swolemates and locations</p>  
+    <h2>Welcome! Ready to meet swolemates and get strong?</h2>
+    <br>
+    <h4><u><a href="/login">Login</a></u> to get started and save your favorite swolemates and locations</h4>  
     {% else %}
-    <h4>Hi swolemate! We're so happy you're here!</h4>
+    <h3>Hi swolemate! We're so happy you're here!</h3>
     {% endif %}
   </div>
 

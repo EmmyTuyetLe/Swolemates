@@ -1,0 +1,226 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Fullscreen Video BG</title>
+
+    <!--
+      If you are writing this in Jinja, you'll want to
+      link to the absolute path, "/static/" and NOT the
+      relative path, "static/"
+
+      We use the relative path so you can open this page in a browser without
+      having to run a server.
+    -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/fullscreen-video-bg.css">
+  </head>
+
+  <body class="override">
+    <!-- This navbar does not have responsive features. -->
+    <nav class="navbar sticky-top navbar-light bg-light justify-content-start">
+      <a class="navbar-brand" href="#">Sticky top</a>
+      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-link" href="#">Link</a>
+      <a class="nav-link disabled" href="#">Disabled</a>
+    </nav>
+
+    <div class="background-video">
+      <video autoplay muted loop>
+        <source src="../static/images/Unicorn-Around.webm" type="video/webm">
+      </video>
+    </div>
+
+    <header
+      class="container-fluid d-flex justify-content-center align-items-center
+             text-light"
+    >
+      <div class="row">
+          <div class="col">
+            <h1>Website!!!</h1>
+          </div>
+        </div>
+    </header>
+
+    <!-- HOW THIS WORKS
+
+      As you can see, our background video isn't really a background. It's
+      actually another element that *looks* like a background.
+
+      *Usually* HTML block elements work like this:
+
+      +----------------------+
+      |                      |
+      | div.background-video |
+      |                      |
+      +----------------------+
+      |                      |
+      |       header         |
+      |                      |
+      +----------------------+
+
+      But when you open this page in your browser, the block elements look
+      like this:
+
+      +----------------------+
+      | div.background-video |
+      | +----------------------+
+      | |                      |    ...ALL IN ONE LAYER?
+      | |       header         |    HOW IS THIS POSSIBLE??
+      +-|                      |
+        +----------------------+
+
+      Here's how it works!
+
+      In `static/css/fullscreen-video-bg.css`:
+
+        .background-video {
+          position: relative;
+        }
+
+      The only reason we set `position: relative` is to use `position: absolute`
+      in the CSS rule below:
+
+        .background-video video {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1;
+        }
+
+      This makes `div.background-video` stay in *one place*. It tells the browser
+      NOT to mess with the position of the div; it should ALWAYS be anchored to
+      the top, left corner of the screen.
+
+      Then, the browser calculates the position of `header` as if `div.background-video`
+      isn't taking up space.
+
+      `z-index: -1` pushes `div.background-video` allll the way to the back.
+
+      The rest of the magic happens in JavaScript, so scroll down to the
+      `script` tags at the bottom of the page.
+    -->
+
+    <main class="container my-5">
+      <div class="row pb-5">
+        <div class="col">
+          <div class="card my-3">
+            <div class="card-body">
+              <h3>💕 Even more content!</h3>
+              <p>
+                This is a card, where you can describe different parts of
+                your website, like you see in all those websites where they have
+                three cards at below the header.
+              </p>
+              <a class="btn btn-primary" href="#">
+                Go do something cool!
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card my-3">
+            <div class="card-body">
+              <h3>💕 Even more content!</h3>
+              <p>
+                This is a card, where you can describe different parts of
+                your website, like you see in all those websites where they have
+                three cards at below the header.
+              </p>
+              <a class="btn btn-primary" href="#">
+                Go do something cool!
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card my-3">
+            <div class="card-body">
+              <h3>💕 Even more content!</h3>
+              <p>
+                This is a card, where you can describe different parts of
+                your website, like you see in all those websites where they have
+                three cards at below the header.
+              </p>
+              <a class="btn btn-primary" href="#">
+                Go do something cool!
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row py-5">
+        <div
+          class="col d-flex flex-column justify-content-center align-items-center
+                 text-center"
+        >
+          <h1 class="display-3">
+            And there's even more content down here!
+          </h1>
+          <p class="display-4 my-4">
+            Look at how exciting this is!
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      "use strict";
+
+      // THE MOST IMPORTANT LINE you should add when using a background video
+      document.querySelector('.background-video video').addEventListener(
+        'click',
+        e => e.preventDefault()
+      );
+
+      /**
+       * Why?
+       *
+       * HTML5 videos will "steal" the click event from other elements.
+       * Preventing the default action will disable click events for the video.
+       */
+
+      /**
+       * WARNING: The rest of this code *is not required*. All it does is resize
+       * the <header> element correctly so that the rest of the content on the
+       * page flows below the video.
+       *
+       * Otherwise, the content will be layered on top of the video. If this is
+       * desireable, ignore the code below.
+       */
+
+      // Callback function to scale the video so that it covers the entire screen
+      function scaleVideo() {
+        const innerWidth = window.innerWidth;
+        const innerHeight = window.innerHeight;
+        if (innerWidth > innerHeight) {
+          document.querySelector('.background-video video').setAttribute('width', innerWidth);
+          document.querySelector('.background-video video').setAttribute('height', '');
+        } else {
+          document.querySelector('.background-video video').setAttribute('height', innerHeight);
+          document.querySelector('.background-video video').setAttribute('width', '');
+        }
+
+        // Also set the height of <header>, so that all your important content goes
+        // BELOW the video
+        const videoHeight = getComputedStyle(document.querySelector('.background-video video')).height;
+        document.querySelector('header').style.height = videoHeight;
+      }
+
+      // Wait for EVERYTHING to load before resizing the video. If we don't do
+      // this, the height is too short
+      //
+      // Caveat: this causes the page to look wonky on initial load.
+      window.onload = scaleVideo;
+
+      // Resize the video if the window is resized
+      window.onresize = scaleVideo
+
+    </script>
+  </body>
+</html>
