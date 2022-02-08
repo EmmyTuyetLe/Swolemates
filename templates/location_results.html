@@ -7,14 +7,13 @@
 
 <br>
 {% for location in businesses %}
-
     <h2>{{location["name"]}}</h2>
     <div>
         <img src='{{location["image_url"]}}' alt="location image" width="auto" height="100">
     </div>
-    <p>Website: <u><b><a href='{{location["url"]}}'>Click</a></u></b> to be redirected to Yelp page for more detailed info/reviews</p>
+    <p>Website: <u><b><a href='{{location["url"]}}'>Visit the Yelp page</a></u></b> for more detailed information, reviews, and directions!</p>
     <p>Phone number: {{location["display_phone"]}}</p>
-    <p>Address: {{location["location"]["display_address"][0], location["location"]["display_address"][1]}}<p></p>
+    <p>Address: {{location["location"]["display_address"][0]}} {{location["location"]["display_address"][1]}}<p></p>
     <p>Categories:
         {% if location["categories"] %}
             {% for category in location["categories"] %}   
