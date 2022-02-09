@@ -102,16 +102,7 @@ for n in range(50):
     user = crud.get_user_by_id(randint(1,30))
     if buddy != user:
         crud.create_buddy(buddy=buddy, user=user)
-        # crud.create_message(buddy=buddy, user=user, message="Hi, nice to meet you. Would love to workout sometime!")
-
-
-#make specific user for testing
-user1 = crud.create_user(fname="Test", lname="Person", email="test@test.com", password="test", pronouns="They/them", gender="Non-binary/non-conforming", about_me="I am a test user.")
-user2 = crud.create_user(fname="Swolemates", lname="Admin", email="swolemates.team1@gmail.com", password="test", pronouns="She/her", gender="Non-binary/non-conforming", about_me="I am the Swolemates admin.")
- 
-#create messages      
-crud.create_message(buddy=user1, user=user2, message="Hello, let's be friends!")
-crud.create_message(buddy=user1, user=user2, message="Hello, would love to workout sometime. I also go to that gym!")
+        crud.create_message(buddy=buddy, user=user, message="Hi, nice to meet you. Would love to workout sometime!")
   
     
 

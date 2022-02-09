@@ -11,7 +11,7 @@
 <p><u><b>Gender:</b></u> {{buddy.gender}}</p>
 <p><u><b>Preferred pronouns:</b></u> {{buddy.pronouns}} </p>
 <p><u><b>About me:</b></u> {{buddy.about_me}}</p>
-<p><u><b>Favorite gym/location:</b></u> <a href='{{buddy.location["url"]}}' class="btn btn-outline-primary btn-sm">{{buddy.location.name}}</a></p>
+<p><u><b>Favorite gym/location:</b></u> <a href='{{buddy.location["url"]}}' class="btn btn-outline-info btn-sm">{{buddy.location.name}}</a></p>
 <p>
   <form class="save_buddy_form" id="buddy_form_{{buddy.user_id}}" method="post" action="/save_buddy.json">
   <button id="save_buddy" type="submit" class="btn btn-outline-danger btn-sm"><span class="bi bi-heart"></span> Save</button> this swolemate as a workout buddy!
@@ -25,7 +25,7 @@
       <input type="hidden" id="buddy_id_{{buddy.user_id}}" value={{buddy.user_id}}>
       <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
       <input type="text" id="message_text_{{buddy.user_id}}" name="message_text">
-      <button id="send_message" type="submit" class="btn btn-outline-primary btn-sm">Send</button>
+      <button id="send_message" type="submit" class="btn btn-outline-info btn-sm">Send</button>
     </form>
 </p>
 <hr class="dashed">

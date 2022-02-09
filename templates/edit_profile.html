@@ -3,7 +3,9 @@
 {% block title %}Find your Swolemates{% endblock %}
 
 {% block body %}
-<p><u><b><a href="/">Return to homepage</a></u></b> if everything looks good and you don't want to make changes</p>
+<div class="row align-items-center">
+    <div class="centered">
+<p><u><b><a href="/my_profile" class="btn btn-outline-info btn-sm">Go back to your profile</a></u></b> if everything looks good and you don't want to make changes</p>
 <h3>Edit Personal Info</h3>
 <form action="/update_user" method="POST">
     <p>Email: <input type="text" name="email" placeholder="{{user.email}}"></p>
@@ -27,6 +29,7 @@
     <p>Phone number (for sms notifications when you receive a message or a verification code if you are locked out of your account): <input type="text" name="phone" placeholder="Enter your phone number"></p>
     <p><input value="Save changes" type="submit"></p>
 </form>
-              
+</div>
+</div>             
 
 {% endblock %}
