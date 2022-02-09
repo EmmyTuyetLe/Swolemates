@@ -3,26 +3,22 @@
 
 
 {% block body %}
-
-<div class="container">
-    <div class="row">
-      <div class="col-7">
-        <div id="buddies">
 {% for buddy in users %}
-  <hr class="dashed">
+<div class="row align-items-center">
+  <div class="centered">
   <p>Swolemate name: <b>{{buddy.fname}} {{buddy.lname}}</b></p>
   <p>Email: <u></u>{{buddy.email}}</u></p>
   <p>Gender: {{buddy.gender}}</p>
   <p>Preferred pronouns: {{buddy.pronouns}}</p>
   <p>{{buddy.about_me}}</p>
   {% if buddy.fav_location %}
-  <p>Favorite gym/location: <a href='{{buddy.location["url"]}}'><u>{{buddy.location.name[0]}}</a></u> </p>
+  <p>Favorite gym/location: <a href='{{buddy.location["url"]}}'><u>{{buddy.location.name}}</a></u> </p>
 {% else %}
   <p>Favorite gym/location: No locations saved yet.</p>
 {% endif %}
   <p>
     <form class="save_buddy_form" id="buddy_form_{{buddy.user_id}}" method="post" action="/save_buddy.json">
-      <button id="save_buddy" type="submit" class="btn btn-primary mt-2">Save</button> this swolemate as a workout buddy!
+      <input type="submit" class="btn btn-info" value="❤️ Save this user to your Swolemates">
       <input type="hidden" id="buddy_id_{{buddy.user_id}}" value={{buddy.user_id}}>
       <input type="hidden" id="saver_id" value={{session.get("user_id")}}>
     </form>
@@ -33,9 +29,12 @@
         <input type="hidden" id="buddy_id_{{buddy.user_id}}" value={{buddy.user_id}}>
         <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
         <input type="text" id="message_text_{{buddy.user_id}}" name="message_text">
-        <button id="send_message" type="submit" class="btn btn-primary mt-2">Send</button>
+        <input id="send_message" type="submit" value="send" class="btn btn-info">
       </form>
   </p>
+  <hr class="dashed">
+</div>
+</div>
 {% endfor %}
 {% endblock %}
 

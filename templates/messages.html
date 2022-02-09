@@ -10,7 +10,6 @@
 {% if messages %}
     {% for message in messages %}
     {% if not message.archived %}
-        <hr class="dashed">
         <p>From: {{ message.user.fname }} {{ message.user.lname[0] }}</p>
         <p>Received on: {{ message.message_date }}</p>
         <p>{{ message.message}}</p>
@@ -21,6 +20,7 @@
             <input type="text" id="message_text_{{message.user.user_id}}" name="message_text">
             <button id="reply_message" type="submit" class="btn btn-primary mt-2">Send</button>
         </form>
+        <hr class="dashed">
     {% endif %}
     {% endfor %}
 {% else %}

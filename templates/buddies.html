@@ -8,7 +8,8 @@
 <br>
 {% if all_buddies %}
     {% for buddy in all_buddies %}
-        <hr class="dashed">
+    <div class="row align-items-center">
+        <div class="centered">
         <h2>{{ buddy.buddy.fname }} {{ buddy.buddy.lname[0]}}</h2>
         <p>Email: <u></u>{{buddy.buddy.email}}</u></p>
         <p>Gender: {{buddy.buddy.gender}}</p>
@@ -24,10 +25,13 @@
         </form>
         <br>
         <form class="unsave_buddy_form" id="unsavebuddy_form_{{buddy.buddy.user_id}}" method="post" action="/unsave_buddy.json">
-            <button id="unsave_buddy" type="submit" class="btn btn-primary mt-2">Unsave</button> this buddy from your swolemates
+            <button id="unsave_buddy" type="submit" class="like-button">Unsave</button> this buddy from your swolemates
             <input type="hidden" id="buddy_id_{{buddy.buddy.user_id}}" value={{buddy.buddy.user_id}}>
             <input type="hidden" id="unsaver_id" value={{session.get("user_id")}}>
         </form>
+        <hr class="dashed">
+        </div>
+        </div>
     {% endfor %}
 {% else %}
     <p>No swolemates saved yet. Go say hello to some new <a href="/users"><u>swolemates</u></a></p>

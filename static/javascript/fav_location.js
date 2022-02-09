@@ -1,11 +1,9 @@
 'use strict';
 
 let locationForms = document.querySelectorAll(".save_location_form")
-
 for (let form of locationForms){
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
-
     let locationId = evt.target.id.split("_")[2]
   
     const formInputs = {
@@ -15,7 +13,6 @@ for (let form of locationForms){
       user_id: document.querySelector("#user_id").value
     };
 
-    console.log(formInputs)
     fetch("/fav_location.json", {
       method: "POST",
       body: JSON.stringify(formInputs),

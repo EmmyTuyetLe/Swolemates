@@ -171,10 +171,10 @@ def fav_location():
     if location is None:
         crud.create_location(location_id=location_id, name=name, url=url)
         crud.save_user_location(location_id=location_id, user_id=user_id)
-        return jsonify({ "success": True, "status": "Your location has been saved"})
+        return jsonify({ "success": True, "status": "Your favorite location has been saved"})
     else:
         crud.save_user_location(location_id=location_id, user_id=user_id)
-        return jsonify({ "success": True, "status": "Your location has been saved"})
+        return jsonify({ "success": True, "status": "Your favorite location has been saved"})
 
 
 @app.route("/users_by_gym/<location_id>")

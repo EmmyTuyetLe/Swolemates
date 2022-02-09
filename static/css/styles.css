@@ -5,8 +5,8 @@
 }
 
 .btn-primary {
-    background-color: #4099ff;
-    border-color: #4099ff;
+    background-color: #4FCBAD3;
+    border-color: #4FCBAD3;
     color: #fff;
     cursor: pointer;
     -webkit-transition: all ease-in .3s;
@@ -155,3 +155,6 @@ body{
     padding: 10px 0;
 }
 
+.red-color {
+    color:red;
+}

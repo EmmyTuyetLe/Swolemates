@@ -4,18 +4,30 @@
 
 
 {% block body %}
-<h2>My sent messages</h2>
-<a href="/delete" onclick="return confirm('Are you sure to archive the messages in your inbox?')"><u><b>Archive messages</u></b></a>
-<br>
-<br>
+<div class="row align-items-center">
+    <div class="centered">
+        <h2>My sent messages</h2>
+        <a href="/delete" onclick="return confirm('Are you sure to archive the messages in your inbox?')"><u><b>Archive messages</u></b></a>
+    </div>
+</div>
 {% if messages %}
     {% for message in messages %}
-        <hr class="dashed">
+    <div class="row align-items-center">
+        <div class="centered">
         <p>To: {{ message.buddy.fname }} {{ message.buddy.lname[0] }}</p>
         <p>Sent on: {{ message.message_date }}</p>
         <p>{{ message.message}}</p>
+        <hr class="dashed">
+        </div>
+    </div>
     {% endfor %}
 {% else %}
     <p>No messages sent yet. Try saying hello to your <a href="/buddies"><u>saved</u> swolemates or </a><a href="/users"><u>go</u></a> find some new ones!</p>
 {% endif %}
+
+<div class="row align-items-center">
+    <div class="bottom-container">
+      <p class="copyright">© 2022 made with ❤️ by Emmy Le</p>
+    </div>
+</div>
 {% endblock %}

@@ -11,29 +11,35 @@
         <div>
             <img src='{{location["image_url"]}}' alt="location image" width="auto" height="100">
         </div>
-        <p>Website: <u><b><a href='{{location["url"]}}'>Visit the Yelp page</a></u></b> for more detailed information, reviews, and directions!</p>
-        <p>Phone number: {{location["display_phone"]}}</p>
-        <p>Address: {{location["location"]["display_address"][0]}} {{location["location"]["display_address"][1]}}<p></p>
-        <p>Categories:
+        <br>
+        <p><u><b>Website:</u></b> <a href='{{location["url"]}}'class="btn btn-outline-info btn-sm">Visit the Yelp page</a> for more detailed information, reviews, and directions!</p>
+        <p><u><b>Phone number:</u></b>  {{location["display_phone"]}}</p>
+        <p><u><b>Address:</u></b>  {{location["location"]["display_address"][0]}} {{location["location"]["display_address"][1]}}<p></p>
+        <p><u><b>Categories:</u></b> 
             {% if location["categories"] %}
                 {% for category in location["categories"] %}   
                     <i>{{category["title"]}}</i>
                 {% endfor %}
             {% endif %} </p>
-        <p>
+            <p><u><b><a href="/users_by_gym/{{location["id"]}}" class="btn btn-outline-info btn-sm">See other swolemates </a></u></b> who favorited this gym</p>
             <form class="save_location_form" id="location_form_{{location['id']}}" method="post" action="/fav_location.json">
-                <button id="fav_location" type="submit" class="btn btn-primary mt-2">Make</button> this your gym!
+                <input type="submit" class="btn btn-outline-danger btn-lg" value="❤️ Save"> this as your favorite gym
                 <input type="hidden" id="location_id_{{location['id']}}" value={{location["id"]}}>
                 <input type="hidden" id="location_name_{{location['id']}}" value={{location["name"]}}>
                 <input type="hidden" id="user_id" value = {{session.get("user_id")}}>
             </form>
-        </p>
-        <p><u><b><a href="/users_by_gym/{{location["id"]}}">See other swolemates</a></u></b> who love this gym</p>
         <hr class="dashed">
+    </div>
     </div>
 </div>
 
 {% endfor %}
+
+<div class="row align-items-center">
+    <div class="bottom-container">
+      <p class="copyright">© 2022 made with ❤️ by Emmy Le</p>
+    </div>
+</div>
 {% endblock %}
 
 
