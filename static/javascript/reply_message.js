@@ -6,15 +6,12 @@ for (let form of replyMessageForms){
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
 
-    console.log('************TEST 2')
-
-
     let buddyId = evt.target.id.split("_")[2]
   
     const formInputs = {
       buddy_id: document.querySelector(`#buddy_id_${buddyId}`).value,
       user_id: document.querySelector("#sender_id").value,
-      message_content: document.querySelector("#message_text").value
+      message_content: document.querySelector(`#message_text_${buddyId}`).value
     };
 
     console.log('TEST 3')

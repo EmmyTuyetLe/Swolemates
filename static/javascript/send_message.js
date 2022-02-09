@@ -1,14 +1,9 @@
 'use strict';
-console.log('hellllooooooooo')
 let sendMessageForms = document.querySelectorAll(".send_message_form")
-console.log('TEST 1');
 
 for (let form of sendMessageForms){
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
-
-    console.log('TEST 2')
-
 
     let buddyId = evt.target.id.split("_")[2]
     console.log("*********", buddyId);
