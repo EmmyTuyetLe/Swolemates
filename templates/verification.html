@@ -21,93 +21,106 @@
   </div>
 </div>
 
-  <div class="card">
-    <div class="card-header">
-        <center>
-          <b><h4>Already a swolemate? Log In</h4></b>
-        </center>
-    </div>
-    <div class="card-body mx-auto">
-      <p class="text-break"> 
-      <form action="/login" method="POST">
-        <p>
-          Email: <input type="text" name="email">
-        </p>
-  
-        <p>
-          Password: <input type="password" name="password">
-        </p>
-        <p>
-          <input value="Log In" type="submit">
-        </p>
-      </form>
-      </p>
-    </div>
-  
-  <div class="row align-items-center">
-  <div class="centered">
-  <div class="or-container">
-    <div class="line-separator"></div>
-    <div class="or-label">or</div>
-    <div class="line-separator"></div>
+<div class="card">
+  <div class="card-header">
+      <center>
+        <b><h4>Already a swolemate? Log In</h4></b>
+      </center>
   </div>
-  <div class="row">
-    <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="/google-login"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign in with Google</a> </div>
-  </div> <br>
-  <div>
-  <p>Forgot Password? No problem!</p>
-  <form action="/users/forgotpassword" method="POST">
-    <p>
-      Email <input type="text" name="email">
-    </p>
-    <p>
-      <input type="submit" class="btn btn-outline-info btn-sm">
-    </p> 
-  </form>
-  </div>
-  </div>
-  </div>
-  
-  
-  <div class="row align-items-center">
-  <div class="centered">
-    <h2>Future Swolemate? Create an Account</h2>
-    <form action="/create-user" method="POST">
+  <div class="card-body mx-auto">
+    <p class="text-break"> 
+    <form action="/login" method="POST">
       <p>
         Email: <input type="text" name="email">
       </p>
+
       <p>
         Password: <input type="password" name="password">
       </p>
-      <p>Phone number(optional): <input type="text" name="phone" placeholder="Enter your phone number"></p>
-      <h6>By providing your phone number, you are able to receive a verification code via email/sms if locked out of your account</h6>
       <p>
-        First name: <input type="text" name="fname">
-      </p>
-      <p>
-        Last name: <input type="text" name="lname">
-      </p>
-      <p>Please select the gender you most identify with(optional):</p>
-      <input type="radio" id="gender1" name="gender" value="Cisgender-female">
-      <label for="gender1">Cisgender-female</label><br>
-      <input type="radio" id="gender2" name="gender" value="Transgender-female">
-      <label for="gender2">Transgender-female</label><br>  
-      <input type="radio" id="gender3" name="gender" value="Cisgender-male">
-      <label for="gender3">Cisgender-male</label><br>
-      <input type="radio" id="gender4" name="gender" value="Transgender-male">
-      <label for="gender4">Transgender-male</label><br>
-      <input type="radio" id="gender5" name="gender" value="Non-binary/non-conforming">
-      <label for="gender5">Non-binary/non-conforming</label><br>
-      <p>
-        <input value="Create Account" type="submit" class="btn btn-outline-info btn-sm">
+        <input value="Log In" type="submit">
       </p>
     </form>
+    </p>
   </div>
+
+<div class="row align-items-center">
+<div class="centered">
+<div class="or-container">
+  <div class="line-separator"></div>
+  <div class="or-label">or</div>
+  <div class="line-separator"></div>
+</div>
+<div class="row">
+  <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="/google-login"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign in with Google</a> </div>
+</div> <br>
+
+<div class="card">
+  <div class="card-header">
+      <center>
+        <b><h5>Forgot Password? No problem!</h5></b>
+      </center>
   </div>
-  
-  <div class="row align-items-center">
-    <div class="bottom-container">
-      <p class="copyright">© 2022 made with ❤️ by Emmy Le</p>
-    </div>
+  <div class="card-body mx-auto">
+    <p class="text-break"> 
+<form action="/users/forgotpassword" method="POST">
+  <p>
+    Email <input type="text" name="email">
+  </p>
+  <p>
+    <input type="submit" class="btn btn-outline-info btn-sm">
+  </p> 
+</form>
+</p>
+</div>
+</div>
+
+
+<div class="card">
+  <div class="card-header">
+      <center>
+        <b><h3>Future Swolemate? Create an Account</h3></b>
+      </center>
   </div>
-  {% endblock %}
+  <div class="card-body mx-auto">
+    <p class="text-break"> 
+  <form action="/create-user" method="POST">
+    <p>
+      Email: <input type="text" name="email">
+    </p>
+    <p>
+      Password: <input type="password" name="password">
+    </p>
+    <p>Phone number(optional): <input type="text" name="phone" placeholder="Enter your phone number"></p>
+    <h6>By providing your phone number, you are able to receive a verification code via email/sms if locked out of your account</h6>
+    <p>
+      First name: <input type="text" name="fname">
+    </p>
+    <p>
+      Last name: <input type="text" name="lname">
+    </p>
+    <p>Please select the gender you most identify with(optional):</p>
+    <input type="radio" id="gender1" name="gender" value="Cisgender-female">
+    <label for="gender1">Cisgender-female</label><br>
+    <input type="radio" id="gender2" name="gender" value="Transgender-female">
+    <label for="gender2">Transgender-female</label><br>  
+    <input type="radio" id="gender3" name="gender" value="Cisgender-male">
+    <label for="gender3">Cisgender-male</label><br>
+    <input type="radio" id="gender4" name="gender" value="Transgender-male">
+    <label for="gender4">Transgender-male</label><br>
+    <input type="radio" id="gender5" name="gender" value="Non-binary/non-conforming">
+    <label for="gender5">Non-binary/non-conforming</label><br>
+    <p>
+      <input value="Create Account" type="submit" class="btn btn-outline-info btn-sm">
+    </p>
+  </form>
+</p>
+</div>
+</div>
+
+<div class="row align-items-center">
+  <div class="bottom-container">
+    <p class="copyright">© 2022 made with ❤️ by Emmy Le</p>
+  </div>
+</div>
+{% endblock %}
