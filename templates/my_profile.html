@@ -4,35 +4,53 @@
 
 {% block body %}
 
-<div class="row align-items-center">
-    <div class="centered">
-        <h2>Welcome {{user.fname}}</h2>
-        <hr class="dashed">
-        <h5>{{user.fname}}'s Swolemates profile</h5>
-        <p>Email: {{user.email}}</p>
-        <p>First name: {{user.fname}}</p>
-        <p>Last name: {{user.lname}}</p>
-        <p>Gender: {{user.gender}}</p>
-        <p>Preferred pronouns: {{user.pronouns}}</p>
-        <p>About me: {{user.about_me}}</p>
-        <p>Phone number (for sms notifications): {{user.phone}}</p>
+<div class="card">
+    <div class="card-header">
+        <center>
+          <b><h2>{{user.fname}}'s Swolemates profile</h2></b>
+        </center>
+    </div>
+    <div class="card-body mx-auto">
+        <p class="text-break">        
+        <p><u>Email</u>: {{user.email}}</p>
+        <p><u>First name</u>: {{user.fname}}</p>
+        <p><u>Last name</u>: {{user.lname}}</p>
+        <p><u>Gender</u>: {{user.gender}}</p>
+        <p><u>Preferred pronouns</u>: {{user.pronouns}}</p>
+        <p><u>About me</u>: {{user.about_me}}</p>
+        <p><u>Phone number (for sms notifications)</u>: {{user.phone}}</p>
         {% if user.fav_location %}
-            <p>Favorite gym/location: <a href='{{location["url"]}}'class="btn btn-outline-info btn-sm">{{location.name}}</a></p>
+            <p><u>Favorite gym/location</u>: <a href='{{location["url"]}}'class="btn btn-outline-info btn-sm">{{location.name}}</a></p>
         {% else %}
-            <p>Favorite gym/location: No locations saved yet.</p>
+            <p><u>Favorite gym/location</u>: No locations saved yet.</p>
         {% endif %}
         <a href="/edit_profile" id="button"></a>
-        <hr class="dashed">
+    </div>
+</div>
 
-    <h4>{{user.fname}}'s swolemates</h4>
+<div class="card">
+    <div class="card-header">
+        <center>
+          <b><h4>{{user.fname}}'s swolemates</h4></b>
+        </center>
+    </div>
+    <div class="card-body mx-auto">
+        <p class="text-break">
     <h6><u><b><a href="/messages" class="btn btn-outline-info btn-sm">View your messages</a></u></b></h6>
     <h6><u><b><a href="/sent-messages" class="btn btn-outline-info btn-sm">View sent messages</a></u></b></h6>
     <h6><u><b><a href="/buddies" class="btn btn-outline-info btn-sm">Saved Swolemates</a></u></b></h6>
-    <h6><u><b><a href="/users" class="btn btn-outline-info btn-sm">Find more Swolemate!</a></u></b></h6>
+    <h6><u><b><a href="/users" class="btn btn-outline-info btn-sm">Find more Swolemate!</a></u></b></h6></p>
+    </div>
+</div>
 
-    <hr class="dashed">
-        
-    <h6>Search for a workout destination!</h6>
+<div class="card">
+    <div class="card-header">
+        <center>
+          <b><h6>Search for a workout destination!</h6></b>
+        </center>
+    </div>
+    <div class="card-body mx-auto">
+        <p class="text-break">    
     <form action="/search" id="search-form">
         <p style="display: inline;">
             <input id="search-text" type="text" name="term" placeholder='Find: "gym" "HIIT class"'>

@@ -6,8 +6,17 @@
 {% block body %}
 <div class="row align-items-center">
   <div class="centered">
-    <h2>Please come back soon! Go get swole!</h2>
-    <h2>Already a swolemate? Log In</h2>
+    <h3>Please come back soon. Now go get swole!</h3>
+  </div>
+</div>
+<div class="card">
+  <div class="card-header">
+      <center>
+        <b><h4>Already a swolemate? Log In</h4></b>
+      </center>
+  </div>
+  <div class="card-body mx-auto">
+    <p class="text-break"> 
     <form action="/login" method="POST">
       <p>
         Email: <input type="text" name="email">
@@ -20,8 +29,8 @@
         <input value="Log In" type="submit">
       </p>
     </form>
+    </p>
   </div>
-</div>
 
 <div class="row align-items-center">
 <div class="centered">

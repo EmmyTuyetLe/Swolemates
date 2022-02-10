@@ -6,7 +6,7 @@
 {% block body %}
 <div class="row align-items-center">
     <div class="centered">
-        <h2>My sent messages</h2>
+        <h2>My messages</h2>
         <a href="/delete" class="btn btn-outline-warning btn-sm" onclick="return confirm('Are you sure to archive the messages in your inbox?')"><u><b>Archive messages</u></b></a>
     </div>
 </div>
@@ -14,14 +14,14 @@
     {% for message in messages %}
     <div class="row align-items-center">
         <div class="centered">
-        <p>From: {{ message.user.fname }} {{ message.user.lname[0] }}</p>
-        <p>Sent on: {{ message.message_date }}</p>
+        <h4><u>From: {{ message.user.fname }} {{ message.user.lname[0] }}</u></h4>
+        <p><u>Sent on</u>: {{ message.message_date.strftime("%a, %B %-d, %Y, %-I:%M %p")}}</p>
         <p>{{ message.message}}</p>
         <form class="reply_message_form" id="replymessage_form_{{message.user.user_id}}" method="post" action="/reply_message.json">
             <input type="hidden" id="buddy_id_{{message.user.user_id}}" value={{message.user.user_id}}>
             <input type="hidden" id="sender_id" value = {{session.get("user_id")}}>
             <input type="text" id="message_text_{{message.user.user_id}}" name="message_text">
-            <button id="reply_message" type="submit" class="btn btn-outline-info btn-sm">Send reply to {{ message.user.fname }}:</button>
+            <button id="reply_message" type="submit" class="btn btn-outline-info btn-sm">Send reply to {{ message.user.fname }}</button>
         </form>
         <hr class="dashed">
         </div>

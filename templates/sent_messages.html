@@ -14,8 +14,8 @@
     {% for message in messages %}
     <div class="row align-items-center">
         <div class="centered">
-        <p>To: {{ message.buddy.fname }} {{ message.buddy.lname[0] }}</p>
-        <p>Sent on: {{ message.message_date }}</p>
+        <h4><u>To: {{ message.buddy.fname }} {{ message.buddy.lname[0] }}</u></h4>
+        <p><u>Sent on</u>: {{ message.message_date.strftime("%a, %B %-d, %Y, %-I:%M %p")}}</p>
         <p>{{ message.message}}</p>
         <hr class="dashed">
         </div>

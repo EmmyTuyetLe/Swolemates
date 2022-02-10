@@ -5,12 +5,17 @@
 
 {% block body %}
 {% for location in businesses %}
-<div class="row align-items-center">
-    <div class="centered">
-        <h2>{{location["name"]}}</h2>
-        <div>
+<div class="card" id="profile-head">
+    <div class="card-header">
+        <center>
+          <b><h2>{{location["name"]}}</h2></b>
+        </center>
+    </div>
+    <div class="card-body mx-auto">
+        <p class="text-break"> 
+        <center>
             <img src='{{location["image_url"]}}' alt="location image" width="auto" height="100">
-        </div>
+        </center>
         <br>
         <p><u><b>Website:</u></b> <a href='{{location["url"]}}'class="btn btn-outline-info btn-sm">Visit the Yelp page</a> for more detailed information, reviews, and directions!</p>
         <p><u><b>Phone number:</u></b>  {{location["display_phone"]}}</p>
@@ -28,8 +33,7 @@
                 <input type="hidden" id="location_name_{{location['id']}}" value={{location["name"]}}>
                 <input type="hidden" id="user_id" value = {{session.get("user_id")}}>
             </form>
-        <hr class="dashed">
-    </div>
+        </p>
     </div>
 </div>
 
