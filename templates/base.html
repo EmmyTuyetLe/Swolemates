@@ -58,17 +58,12 @@
   </nav>
 
   <body>
-    <!-- <div class="row align-items-center"> -->
-      <!-- <div class="centered"> -->
         {% for msg in get_flashed_messages() %}
         <p class="flash-msg">
           {{ msg }}
         </p>
         {% endfor %}
-      </div>
-    </div>
-    
-    {% block body %}{% endblock %}
+  {% block body %}{% endblock %}
 
 
   <script src="/static/javascript/save_buddies.js"></script>

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}Users who love this gym{% endblock %}
 
-
 {% block body %}
+<header>
+  <h2>Swolemates who favorited this gym</h2>
+</header>
 {% for buddy in gym_users %}
 <div class="row align-items-center">
 <div class="centered">

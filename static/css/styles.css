@@ -1,13 +1,7 @@
-.btn-md {
-    padding: 10px 16px;
-    font-size: 15px;
-    line-height: 23px
-}
-
 .btn-primary {
     background-color: #4FCBAD3;
     border-color: #4FCBAD3;
-    color: #fff;
+    color: white;
     cursor: pointer;
     -webkit-transition: all ease-in .3s;
     transition: all ease-in .3s
@@ -34,7 +28,6 @@
 .heading {
     font-size: 21px
 }
-
 
 .btn-google {
     color: #545454;
@@ -168,3 +161,42 @@ body{
     text-align: center;
     padding: 25px;
 }
+
+header {
+    background: URL("/static/img/friends-pushup.jpg");
+    background-repeat: no-repeat;
+    color:white;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    width: auto;
+    height: 40vh;
+    background-size: cover;
+}
+
+.profile-header {
+    background: URL("/static/img/weights.jpg");
+    background-repeat: no-repeat;
+    color: #0F4C75;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    width: auto;
+    height: 55vh;
+    background-size: cover;
+
+}
+
+.buddies-header {
+    background: URL("/static/img/deadlift.jpg");
+    background-repeat: no-repeat;
+    color: white;
+    position: relative;
+    margin: auto;
+    text-align: center;
+    width: auto;
+    height: 55vh;
+    background-size: cover;
+
+}
+
