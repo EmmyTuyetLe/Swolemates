@@ -244,15 +244,15 @@ def send_message():
     user = crud.get_user_by_id(user_id)
     message = request.json.get("message_content")
     crud.create_message(buddy=buddy, user=user, message=message)
-    # account_sid = os.environ['TWILIO_ACCOUNT_SID']
-    # auth_token = os.environ['TWILIO_AUTH_TOKEN']
-    # send_num = os.environ['TWILIO_PHONE']
-    # client = Client(account_sid, auth_token)
-    # new_message = client.messages.create(
-    #                             from_= send_num,
-    #                             body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
-    #                             to=f'+1'+buddy.phone
-    #                         )
+    account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    send_num = os.environ['TWILIO_PHONE']
+    client = Client(account_sid, auth_token)
+    new_message = client.messages.create(
+                                from_= send_num,
+                                body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
+                                to=f'+1'+buddy.phone
+                            )
     return jsonify({ "success": True, "status": "Your message was sent!"})
     
 @app.route("/reply_message.json", methods=["POST"])

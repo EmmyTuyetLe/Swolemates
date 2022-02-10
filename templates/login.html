@@ -8,11 +8,11 @@
 <div class="card">
   <div class="card-header">
       <center>
-        <b><h2>Already a swolemate? Log In</h2></b>
+        <b><h4>Already a swolemate? Log In</h4></b>
       </center>
   </div>
   <div class="card-body mx-auto">
-    <p class="text-break">    
+    <p class="text-break"> 
     <form action="/login" method="POST">
       <p>
         Email: <input type="text" name="email">
@@ -22,44 +22,36 @@
         Password: <input type="password" name="password">
       </p>
       <p>
-        <input value="Log In" type="submit" class="btn btn-outline-info btn-sm">
+        <input value="Log In" type="submit">
       </p>
     </form>
     </p>
-    </div>
-</div>
+  </div>
 
 <div class="row align-items-center">
-  <div class="centered">
-    <div class="or-container">
-      <div class="or-label"><h5>or</h5></div>
-      <br>
-      <div class="line-separator"></div>
-    </div>
-    <br>
-    <div class="row">
-      <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="/google-login"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign in with Google</a> </div>
-    </div>
-  </div>
+<div class="centered">
+<div class="or-container">
+  <div class="line-separator"></div>
+  <div class="or-label">or</div>
+  <div class="line-separator"></div>
 </div>
-  <div class="card">
-    <div class="card-header">
-        <center>
-          <b><h4>Forgot Password? No problem!</h4></b>
-        </center>
-    </div>
-    <div class="card-body mx-auto">
-      <p class="text-break"
-  <form action="/users/forgotpassword" method="POST">
-    <p>
-      Email <input type="text" name="email">
-    </p>
-    <p>
-      <input type="submit" class="btn btn-outline-info btn-sm">
-    </p>
-  </form>
-  </div>
+<div class="row">
+  <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href="/google-login"><img src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign in with Google</a> </div>
+</div> <br>
+<div>
+<p>Forgot Password? No problem!</p>
+<form action="/users/forgotpassword" method="POST">
+  <p>
+    Email <input type="text" name="email">
+  </p>
+  <p>
+    <input type="submit" class="btn btn-outline-info btn-sm">
+  </p> 
+</form>
 </div>
+</div>
+</div>
+
 
 <div class="row align-items-center">
 <div class="centered">
