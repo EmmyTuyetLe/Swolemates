@@ -1,20 +1,17 @@
 'use strict';
 
-let unsaveForms = document.querySelectorAll(".unsave_buddy_form")
+let unsaveBuddyForms = document.querySelectorAll(".unsave_buddy_form")
 
-for (let form of unsaveForms){
+for (let form of unsaveBuddyForms){
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
 
     let buddyId = evt.target.id.split("_")[2]
-    console.log(buddyId);
   
     const formInputs = {
-      buddy_id: document.querySelector(`#buddy_id_${buddyId}`).value,
+      buddy_id: buddyId,
       user_id: document.querySelector("#unsaver_id").value
     };
-
-    console.log(formInputs)
     fetch("/unsave_buddy.json", {
       method: "POST",
       body: JSON.stringify(formInputs),
@@ -30,4 +27,5 @@ for (let form of unsaveForms){
       });
   });
 }
+
 

@@ -201,13 +201,17 @@ def save_buddy():
 def unsave_buddy():
     """Unsave a buddy"""
     buddy_id = request.json.get("buddy_id")
+    print("******************* buddy_id", buddy_id)
     user_id = request.json.get("user_id")
+    print("******************* user_id", user_id)
     already_saved = crud.check_save(buddy_id=buddy_id, user_id=user_id)
+    print("******************* save_id", already_saved)
     if already_saved:
         crud.unsave(buddy_id=buddy_id, user_id=user_id) 
         return jsonify({ "success": True, "status": "Your buddy has been removed"})
     else: 
         return jsonify({ "fail": False, "status": "You already removed that buddy"})
+        
     
 @app.route("/buddies")
 def view_buddies():
@@ -244,15 +248,15 @@ def send_message():
     user = crud.get_user_by_id(user_id)
     message = request.json.get("message_content")
     crud.create_message(buddy=buddy, user=user, message=message)
-    # account_sid = os.environ['TWILIO_ACCOUNT_SID']
-    # auth_token = os.environ['TWILIO_AUTH_TOKEN']
-    # send_num = os.environ['TWILIO_PHONE']
-    # client = Client(account_sid, auth_token)
-    # new_message = client.messages.create(
-    #                             from_= send_num,
-    #                             body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
-    #                             to=f'+1'+buddy.phone
-    #                         )
+    account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    send_num = os.environ['TWILIO_PHONE']
+    client = Client(account_sid, auth_token)
+    new_message = client.messages.create(
+                                from_= send_num,
+                                body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
+                                to=f'+1'+buddy.phone
+                            )
     return jsonify({ "success": True, "status": "Your message was sent!"})
     
 @app.route("/reply_message.json", methods=["POST"])

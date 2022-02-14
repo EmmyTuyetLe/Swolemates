@@ -3,7 +3,6 @@
 let saveBuddyForms = document.querySelectorAll(".save_buddy_form")
 
 for (let form of saveBuddyForms){
-  console.log(form);
   form.addEventListener("submit", (evt) => {
     evt.preventDefault();
 
@@ -14,7 +13,6 @@ for (let form of saveBuddyForms){
       user_id: document.querySelector("#saver_id").value
     };
 
-    console.log(formInputs)
     fetch("/save_buddy.json", {
       method: "POST",
       body: JSON.stringify(formInputs),
