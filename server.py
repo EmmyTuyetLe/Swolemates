@@ -201,11 +201,8 @@ def save_buddy():
 def unsave_buddy():
     """Unsave a buddy"""
     buddy_id = request.json.get("buddy_id")
-    print("******************* buddy_id", buddy_id)
     user_id = request.json.get("user_id")
-    print("******************* user_id", user_id)
     already_saved = crud.check_save(buddy_id=buddy_id, user_id=user_id)
-    print("******************* save_id", already_saved)
     if already_saved:
         crud.unsave(buddy_id=buddy_id, user_id=user_id) 
         return jsonify({ "success": True, "status": "Your buddy has been removed"})
@@ -252,11 +249,11 @@ def send_message():
     auth_token = os.environ['TWILIO_AUTH_TOKEN']
     send_num = os.environ['TWILIO_PHONE']
     client = Client(account_sid, auth_token)
-    new_message = client.messages.create(
-                                from_= send_num,
-                                body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
-                                to=f'+1'+buddy.phone
-                            )
+    # new_message = client.messages.create(
+    #                             from_= send_num,
+    #                             body=f'Hello {buddy.fname} you received a message from {user.fname} {user.lname[0]} that says "{message}"',
+    #                             to=f'+1'+buddy.phone
+    #                         )
     return jsonify({ "success": True, "status": "Your message was sent!"})
     
 @app.route("/reply_message.json", methods=["POST"])
