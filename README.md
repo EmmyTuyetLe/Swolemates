@@ -25,7 +25,7 @@ The following is a walkthrough of the User Experience:
 
 ### Login, Registration, Permissions
 
-![Homepage](https://media.giphy.com/media/vXvQVlhBgJmMhWBVzM/giphy.gif "Homepage")
+<img src="/static/img/homepage.gif" width="900">
 
 The main homepage displays a link for the user to login or register
 
@@ -53,7 +53,7 @@ Users can enter in any search term such as "climbing", "kickboxing", or "powerli
 Users are able to browse users who favorited a gym location. They can save these users as "swolemates" they are interested in working out with and send them a message. When an user recieves a new message, they will be notified instantly via text from Twilio SMS. 
 
 ### Saved Swolemates and Message Inbox
-![Home](/static/img/homepage.gif "Home")
+![Profile](/static/img/profile.jpg "Profile")
 Users can see their saved swolemates, along with received message inbox and a sent message inbox. From the swolemates page, users can unsave buddies they are no longer interested in working out with.
 
 ![Messages](/static/img/messages.jpg "Messages")
